@@ -1,7 +1,7 @@
 # 👾 Tumelo Maitse — Cybersecurity Portfolio
 
 > **Security Analyst · Ethical Hacker · Full-Stack Developer**  
-> 🔗 Live Site: [yourusername.github.io/portfolio](https://yourusername.github.io/portfolio)  
+> 🔗 Live Site: [yourusername.github.io/portfolio](https://github.com/maitsetumelo9/tumelo-maitse-Portfolio)  
 > 📧 Contact: maitsetumelo9@gmail.com
 
 ---
@@ -85,8 +85,7 @@ open index.html
 ## 📬 Contact
 
 - 📧 Email: [maitsetumelo9@gmail.com](mailto:maitsetumelo9@gmail.com)
-- 💼 LinkedIn: *(add your LinkedIn URL here)*
-- 🐙 GitHub: *(add your GitHub profile URL here)*
+- 🐙 GitHub: *(https://github.com/maitsetumelo9/tumelo-maitse-Portfolio)*
 
 ---
 
