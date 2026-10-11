@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An educational password strength analyzer that explains common password weaknesses locally in your browser.">
+  <title>Password Strength Analyzer | 0xDev</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="analyzer.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <a class="back" href="../../index.html">← Back to 0xDev portfolio</a>
+    <p class="eyebrow">0xDEV / SECURITY LAB 001</p>
+    <h1>Password Strength <span>Analyzer</span></h1>
+    <p class="intro">Learn how length, variety, and predictable patterns affect password quality. Analysis runs locally in this browser; the password is not sent to a server or saved.</p>
+    <section class="panel" aria-labelledby="input-heading">
+      <label id="input-heading" for="password">Test a sample password</label>
+      <div class="password-row">
+        <input id="password" type="password" autocomplete="off" spellcheck="false" placeholder="Enter a test password">
+        <button id="toggle" type="button" aria-pressed="false">Show</button>
+      </div>
+      <p class="privacy">Use a fictional test password — never enter a password you use for a real account.</p>
+      <div class="meter" aria-label="Strength score"><div id="meter-fill"></div></div>
+      <div class="score-row"><strong id="rating" aria-live="polite">Not assessed</strong><span id="score">0 / 100</span></div>
+      <p id="summary" class="summary">Enter a sample to see feedback.</p>
+    </section>
+    <section class="panel" aria-labelledby="checks-heading">
+      <h2 id="checks-heading">Security checks</h2>
+      <ul id="checks" class="checks">
+        <li>Enter a sample password to run checks.</li>
+      </ul>
+    </section>
+    <section class="note">
+      <h2>What this tool can — and cannot — tell you</h2>
+      <p>This is a learning aid, not a password-cracking benchmark. It uses transparent heuristics, not a breached-password database or a full entropy estimator. A high score does not prove that a password has never been exposed.</p>
+    </section>
+    <footer>0xDev · Educational use · No password transmission or storage</footer>
+  </main>
+</body>
+</html>
