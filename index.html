@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07130f">
+  <meta name="description" content="Tumelo Maitse's cybersecurity and full-stack development portfolio: learning projects, security tooling, and a practical skills roadmap.">
+  <title>0xDev | Tumelo Maitse — Cybersecurity & Full Stack</title>
+  <style>
+    :root{color-scheme:dark;--bg:#07130f;--panel:#0b1c15;--line:#1c4733;--green:#65ff9a;--muted:#a4b8aa;--text:#edf7ef;--amber:#d8f59c}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#103622 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
+    a{color:var(--green);text-underline-offset:4px}a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+    .wrap{width:min(1100px,calc(100% - 36px));margin:auto}.top{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}.brand{font-weight:800;letter-spacing:.08em}.brand span{color:var(--green)}nav{display:flex;flex-wrap:wrap;gap:18px}nav a{text-decoration:none;color:var(--muted);font-size:.9rem}nav a:hover{color:var(--green)}
+    .hero{padding:78px 0 56px;max-width:850px}.eyebrow{color:var(--green);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}.hero h1{font-size:clamp(2.3rem,7vw,5rem);line-height:1.08;margin:18px 0}.hero h1 span{color:var(--green)}.hero p{max-width:720px;color:var(--muted);font-size:1.08rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.btn{display:inline-block;border:1px solid var(--green);padding:10px 15px;border-radius:5px;text-decoration:none;font-weight:700}.btn.primary{background:var(--green);color:#06110b}.terminal{margin-top:30px;border:1px solid var(--line);background:#050d09;border-radius:8px;padding:18px;overflow:auto;color:#b5d8bf}.terminal strong{color:var(--green)}.terminal .dim{color:#668b73}
+    section{padding:42px 0}h2{font-size:1.5rem;margin:0 0 8px} .sub{color:var(--muted);margin:0 0 22px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{border:1px solid var(--line);background:linear-gradient(145deg,#0d2118,var(--panel));padding:20px;border-radius:8px;min-width:0}.card h3{margin:8px 0;font-size:1.05rem}.card p{color:var(--muted);font-size:.92rem}.tag{display:inline-block;border:1px solid #285a3e;border-radius:3px;padding:2px 7px;color:var(--green);font-size:.75rem}.status{color:var(--amber);font-size:.8rem}.skills{display:flex;flex-wrap:wrap;gap:9px}.skills span{padding:7px 10px;border:1px solid var(--line);border-radius:4px;color:#c5d9cb}.roadmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.roadmap .card{border-top:2px solid var(--green)}.roadmap ul{padding-left:20px;color:var(--muted)}.contact{border:1px solid var(--line);padding:25px;border-radius:8px;background:#091810}footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    @media(max-width:760px){.grid,.roadmap{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-top:54px}}@media(max-width:520px){.grid,.roadmap{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.hero{padding-top:40px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="#home" aria-label="0xDev home" style="color:var(--text);text-decoration:none"><span>0x</span>DEV_</a>
+      <nav aria-label="Main navigation"><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#roadmap">Roadmap</a><a href="#contact">Contact</a></nav>
+    </header>
+    <main id="home">
+      <section class="hero">
+        <div class="eyebrow">[ Security-minded developer in progress ]</div>
+        <h1>Tumelo Maitse<br><span>Cybersecurity</span> × Full Stack</h1>
+        <p>I build practical projects to strengthen my understanding of web development, Linux, networking, and defensive security. This portfolio documents what I’m learning, what I’ve built, and what I’m working on next.</p>
+        <div class="actions"><a class="btn primary" href="#projects">Explore projects ↓</a><a class="btn" href="https://github.com/maitsetumelo9" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a></div>
+        <div class="terminal" role="img" aria-label="Terminal-style introduction">
+          <div><span class="dim">tumelo@0xdev:~$</span> whoami</div>
+          <div><strong>learner</strong> · builder · security-focused</div>
+          <div><span class="dim">tumelo@0xdev:~$</span> cat mission.txt</div>
+          <div>Learn deeply. Build honestly. Test only with permission.</div>
+        </div>
+      </section>
+      <section id="projects">
+        <h2>Selected projects</h2>
+        <p class="sub">A transparent project roadmap. Items marked “Planned” are not presented as completed work.</p>
+        <div class="grid">
+          <article class="card"><span class="tag">01 · Web security</span><h3>Password Strength Analyzer</h3><p>A browser-based learning tool to explain password length, variety, and common weakness patterns. It should never transmit or store entered passwords.</p><div class="status">Status: planned / verify implementation</div></article>
+          <article class="card"><span class="tag">02 · Cryptography</span><h3>Hashing & Encoding Lab</h3><p>Compare encoding with cryptographic hashing and demonstrate SHA digests using the browser's Web Crypto API.</p><div class="status">Status: planned / verify implementation</div></article>
+          <article class="card"><span class="tag">03 · Networking</span><h3>Network Recon Notes</h3><p>A documented, permission-based lab for learning Nmap output, ports, services, and safe scope definition on local test targets.</p><div class="status">Status: planned</div></article>
+          <article class="card"><span class="tag">04 · Defensive security</span><h3>Log Analysis Dashboard</h3><p>Parse sample authentication logs, highlight suspicious patterns, and explain detection logic with test data.</p><div class="status">Status: planned</div></article>
+          <article class="card"><span class="tag">05 · Full stack</span><h3>Student Learning Platform</h3><p>A learning application roadmap covering accounts, lessons, quizzes, and progress tracking with secure access controls.</p><div class="status">Status: in roadmap</div></article>
+          <article class="card"><span class="tag">06 · Full stack</span><h3>Secure Job Tracker</h3><p>A practical app concept for tracking applications, with validation, authentication, and careful handling of personal data.</p><div class="status">Status: roadmap / repository may exist separately</div></article>
+        </div>
+      </section>
+      <section id="skills">
+        <h2>Skills in development</h2>
+        <p class="sub">Focused on fundamentals that can be demonstrated through code, notes, and repeatable lab results.</p>
+        <div class="skills"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span><span>Node.js</span><span>SQL</span><span>Python</span><span>Linux</span><span>Networking</span><span>Git & GitHub</span><span>Web security</span><span>Ethical hacking labs</span></div>
+      </section>
+      <section id="roadmap">
+        <h2>Learning roadmap</h2>
+        <p class="sub">Progress is earned by completing and documenting the work—not by listing tools alone.</p>
+        <div class="roadmap">
+          <article class="card"><span class="tag">Phase 01</span><h3>Core foundations</h3><ul><li>Linux CLI and permissions</li><li>TCP/IP, DNS, HTTP and ports</li><li>Git workflow and clean commits</li></ul></article>
+          <article class="card"><span class="tag">Phase 02</span><h3>Build & test</h3><ul><li>Small, testable Python/JS tools</li><li>Web security fundamentals</li><li>Document authorised lab exercises</li></ul></article>
+          <article class="card"><span class="tag">Phase 03</span><h3>Demonstrate ability</h3><ul><li>Automated tests and screenshots</li><li>Threat model and remediation notes</li><li>Clear setup instructions and limitations</li></ul></article>
+        </div>
+      </section>
+      <section id="contact">
+        <div class="contact"><h2>Let’s connect</h2><p class="sub">Interested in junior cybersecurity, ethical hacking, or full-stack development opportunities.</p><a href="https://github.com/maitsetumelo9">github.com/maitsetumelo9</a> · <a href="mailto:maitsetumelo9@gmail.com">Email Tumelo</a></div>
+      </section>
+    </main>
+    <footer><span>© <span id="year">2026</span> Tumelo Maitse · 0xDev</span><span>Built with HTML + CSS · Accessible, responsive, no external dependencies</span></footer>
+  </div>
+</body>
+</html>
