@@ -21,7 +21,9 @@
         <button id="toggle" type="button" aria-pressed="false">Show</button>
       </div>
       <p class="privacy">Use a fictional test password — never enter a password you use for a real account.</p>
-      <div class="meter" aria-label="Strength score"><div id="meter-fill"></div></div>
+      <div id="meter" class="meter" role="progressbar" aria-label="Password heuristic score" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Not assessed">
+        <div id="meter-fill"></div>
+      </div>
       <div class="score-row"><strong id="rating" aria-live="polite">Not assessed</strong><span id="score">0 / 100</span></div>
       <p id="summary" class="summary">Enter a sample to see feedback.</p>
     </section>
