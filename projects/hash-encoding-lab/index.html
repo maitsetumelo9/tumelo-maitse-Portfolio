@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A local browser lab demonstrating Base64 encoding, decoding, and SHA-256 hashing with clear security explanations.">
+  <title>Hash &amp; Encoding Lab | 0xDev</title>
+  <style>
+    :root{color-scheme:dark;--bg:#07100d;--panel:#0d1b15;--line:#234a35;--green:#62f59a;--muted:#a4b9ab;--text:#edf7ef;--red:#ff7777}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#102b1d 0%,var(--bg) 55%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+    main{max-width:860px;margin:auto;padding:28px 18px 48px}.back{color:var(--green)}.eyebrow{margin-top:36px;color:var(--green);font-size:.8rem;letter-spacing:.16em;font-weight:800}h1{font-size:clamp(2rem,7vw,3.2rem);line-height:1.12;margin:.2em 0}h1 span{color:var(--green)}.muted{color:var(--muted)}.panel,.notice{border:1px solid var(--line);background:rgba(13,27,21,.94);border-radius:14px;padding:22px;margin-top:20px}label{display:block;font-weight:700;margin:12px 0 6px}textarea,select{width:100%;background:#050b08;border:1px solid #41644e;border-radius:8px;color:var(--text);padding:12px;font:inherit}textarea{min-height:115px;resize:vertical}button{background:var(--green);color:#07100d;border:0;border-radius:8px;padding:10px 15px;font:700 1rem system-ui;cursor:pointer;margin:12px 8px 0 0}button.secondary{background:transparent;color:var(--green);border:1px solid var(--green)}button:focus-visible,a:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--green);outline-offset:3px}.output{white-space:pre-wrap;overflow-wrap:anywhere;min-height:48px;background:#050b08;border:1px solid #234a35;border-radius:8px;padding:12px;margin:8px 0 0}.status{min-height:1.6em;color:var(--green)}.error{color:var(--red)}.notice{border-left:4px solid var(--green)}.notice p{margin-bottom:0}footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:28px}@media(max-width:480px){main{padding:20px 13px 36px}.panel,.notice{padding:16px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="../../index.html">← Back to 0xDev portfolio</a>
+  <p class="eyebrow">0xDEV / SECURITY LAB 002</p>
+  <h1>Hash &amp; <span>Encoding Lab</span></h1>
+  <p class="muted">Explore the difference between reversible encoding and one-way hashing. All operations run locally in your browser; input is not uploaded or saved.</p>
+
+  <section class="panel" aria-labelledby="input-title">
+    <h2 id="input-title">Input</h2>
+    <label for="source">Text to experiment with</label>
+    <textarea id="source" spellcheck="false" placeholder="Enter harmless sample text"></textarea>
+    <p class="muted">Do not paste passwords, API keys, personal information, or other secrets into a learning demo.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="base64-title">
+    <h2 id="base64-title">1. Base64 encoding and decoding</h2>
+    <p class="muted">Base64 changes representation; it does not encrypt or protect data. Anyone can decode it.</p>
+    <button id="encode" type="button">Encode as Base64</button>
+    <button id="decode" class="secondary" type="button">Decode Base64 input</button>
+    <p id="base64-status" class="status" role="status" aria-live="polite"></p>
+    <label for="base64-output">Result</label>
+    <textarea id="base64-output" readonly aria-describedby="base64-status" placeholder="Encoded or decoded result appears here"></textarea>
+    <button id="use-output" class="secondary" type="button">Use result as input</button>
+  </section>
+
+  <section class="panel" aria-labelledby="hash-title">
+    <h2 id="hash-title">2. SHA-256 hashing</h2>
+    <p class="muted">A cryptographic hash produces a fixed-length digest. Hashing is not encryption and cannot be reversed to recover the original text.</p>
+    <button id="hash" type="button">Calculate SHA-256</button>
+    <p id="hash-status" class="status" role="status" aria-live="polite"></p>
+    <label for="hash-output">256-bit digest (64 hexadecimal characters)</label>
+    <textarea id="hash-output" readonly spellcheck="false" placeholder="SHA-256 digest appears here"></textarea>
+  </section>
+
+  <aside class="notice">
+    <h2>Security notes</h2>
+    <p><strong>Base64:</strong> encoding, not confidentiality. <strong>SHA-256:</strong> a general-purpose hash, not a password-storage scheme by itself. Real password storage should use a purpose-built password hashing function such as Argon2id, scrypt, or bcrypt with appropriate parameters and salts.</p>
+  </aside>
+  <footer>0xDev · Educational use · No network requests for input processing</footer>
+</main>
+<script>
+"use strict";
+(() => {
+  const source = document.querySelector("#source");
+  const base64Output = document.querySelector("#base64-output");
+  const base64Status = document.querySelector("#base64-status");
+  const hashOutput = document.querySelector("#hash-output");
+  const hashStatus = document.querySelector("#hash-status");
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder("utf-8", { fatal: true });
+
+  function report(element, message, isError = false) {
+    element.textContent = message;
+    element.classList.toggle("error", isError);
+  }
+
+  document.querySelector("#encode").addEventListener("click", () => {
+    try {
+      const bytes = encoder.encode(source.value);
+      let binary = "";
+      bytes.forEach(byte => { binary += String.fromCharCode(byte); });
+      base64Output.value = btoa(binary);
+      report(base64Status, "Encoding complete. This output is not encrypted.");
+    } catch {
+      report(base64Status, "Could not encode this input.", true);
+    }
+  });
+
+  document.querySelector("#decode").addEventListener("click", () => {
+    try {
+      const binary = atob(source.value.trim());
+      const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+      base64Output.value = decoder.decode(bytes);
+      report(base64Status, "Decoding complete. Base64 provides no secrecy.");
+    } catch {
+      base64Output.value = "";
+      report(base64Status, "Invalid Base64 or invalid UTF-8 text. Check the input and try again.", true);
+    }
+  });
+
+  document.querySelector("#use-output").addEventListener("click", () => {
+    source.value = base64Output.value;
+    source.focus();
+    report(base64Status, "Result copied into the input field. No data was sent or saved.");
+  });
+
+  document.querySelector("#hash").addEventListener("click", async () => {
+    hashOutput.value = "";
+    if (!globalThis.crypto || !globalThis.crypto.subtle) {
+      report(hashStatus, "Web Crypto is unavailable. Open this page in a browser context that supports crypto.subtle (normally HTTPS or localhost).", true);
+      return;
+    }
+    try {
+      const digest = await crypto.subtle.digest("SHA-256", encoder.encode(source.value));
+      hashOutput.value = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
+      report(hashStatus, "SHA-256 digest calculated locally.");
+    } catch {
+      report(hashStatus, "Hashing failed in this browser context. Try a modern browser over HTTPS or localhost.", true);
+    }
+  });
+})();
+</script>
+</body>
+</html>
