@@ -6,7 +6,7 @@
       { label: "At least 12 characters", pass: password.length >= 12, points: 30 },
       { label: "At least 16 characters", pass: password.length >= 16, points: 10 },
       { label: "Contains lowercase and uppercase letters", pass: /[a-z]/.test(password) && /[A-Z]/.test(password), points: 15 },
-      { label: "Contains numbers", pass: /\\d/.test(password), points: 10 },
+      { label: "Contains numbers", pass: /\d/.test(password), points: 10 },
       { label: "Contains symbols", pass: /[^A-Za-z0-9]/.test(password), points: 15 },
       { label: "Avoids common predictable words and sequences", pass: !/(password|qwerty|letmein|admin|welcome|123456|abcdef|iloveyou)/i.test(password), points: 20 }
     ];

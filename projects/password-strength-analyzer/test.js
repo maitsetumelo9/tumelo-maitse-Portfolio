@@ -10,6 +10,12 @@ const weak = analyzePassword("password123");
 assert.ok(weak.score < 55, "predictable short password should not score well");
 assert.ok(weak.checks.some(check => check.label.includes("predictable") && !check.pass));
 
+const numberCheck = result => result.checks.find(check => check.label === "Contains numbers");
+const withoutDigits = analyzePassword("CobaltRiverTree");
+assert.equal(numberCheck(withoutDigits).pass, false, "letters-only sample must fail the number check");
+const withDigits = analyzePassword("CobaltRiverTree82");
+assert.equal(numberCheck(withDigits).pass, true, "sample containing digits must pass the number check");
+
 const stronger = analyzePassword("Cobalt!River-Tree-82");
 assert.ok(stronger.score > weak.score, "longer varied password should score higher");
 assert.equal(stronger.checks.length, 6);
