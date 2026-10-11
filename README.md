@@ -20,13 +20,13 @@ I am building practical projects to demonstrate my developing skills in programm
 
 ## Projects
 
-### Working project
+### Working projects
 
 - **[Password Strength Analyzer](projects/password-strength-analyzer/README.md)** — browser-based educational tool that scores sample passwords against transparent heuristics and explains the checks. Includes a Node.js test script.
+- **[Hash & Encoding Lab](projects/hash-encoding-lab/README.md)** — interactive browser lab for Base64 encoding/decoding and SHA-256 hashing, with Unicode-aware handling, error feedback, and clear explanations of encoding versus encryption.
 
 ### Roadmap — not yet complete
 
-- Hashing and encoding learning lab
 - Network reconnaissance notes and safe lab exercises
 - Log analysis dashboard
 - Student learning platform
@@ -43,6 +43,10 @@ node projects/password-strength-analyzer/test.js
 ```
 
 Read the project's README for its limitations and privacy notes.
+
+## Run the hash and encoding lab
+
+Open `projects/hash-encoding-lab/index.html` in a modern browser. SHA-256 requires a browser context that supports the Web Crypto API, normally HTTPS or localhost. Read its README for security notes and limitations.
 
 ## Credentials
 
