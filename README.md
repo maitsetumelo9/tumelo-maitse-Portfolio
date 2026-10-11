@@ -20,19 +20,16 @@ I am building practical projects to demonstrate my developing skills in programm
 
 ## Projects
 
-### Working projects
+### Working browser demos
 
-- **[Password Strength Analyzer](projects/password-strength-analyzer/README.md)** — browser-based educational tool that scores sample passwords against transparent heuristics and explains the checks. Includes a Node.js test script.
-- **[Hash & Encoding Lab](projects/hash-encoding-lab/README.md)** — interactive browser lab for Base64 encoding/decoding and SHA-256 hashing, with Unicode-aware handling, error feedback, and clear explanations of encoding versus encryption.
+- **[Password Strength Analyzer](projects/password-strength-analyzer/README.md)** — transparent password-strength heuristics, browser-side analysis, and a Node.js test script.
+- **[Hash & Encoding Lab](projects/hash-encoding-lab/README.md)** — Base64 encode/decode and SHA-256 hashing with the Web Crypto API.
+- **[Network Recon Lab](projects/network-recon-lab/README.md)** — offline interpretation of fictional Nmap-style output and common ports; it does not scan networks.
+- **[Log Analysis Dashboard](projects/log-analysis-dashboard/README.md)** — parses synthetic authentication logs and demonstrates a repeated-failure detection rule.
+- **[LearnLab Student Platform MVP](projects/student-learning-platform/README.md)** — lessons, quizzes, explanations, and browser-local progress.
+- **[JobTrack Application Tracker MVP](projects/secure-job-tracker/README.md)** — application CRUD, search/filter, status changes, follow-up dates, and CSV export.
 
-### Roadmap — not yet complete
-
-- Network reconnaissance notes and safe lab exercises
-- Log analysis dashboard
-- Student learning platform
-- Secure job tracker
-
-Planned items are ideas, not claims of finished or deployed software.
+The two full-stack concepts are currently frontend MVPs. Authentication, server-side persistence, and deployment of a backend remain future milestones; the current browser demos do not claim those features.
 
 ## Run the password analyzer
 
