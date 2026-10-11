@@ -26,6 +26,7 @@
     const toggleButton = document.querySelector("#toggle");
     const rating = document.querySelector("#rating");
     const scoreLabel = document.querySelector("#score");
+    const meter = document.querySelector("#meter");
     const meterFill = document.querySelector("#meter-fill");
     const summary = document.querySelector("#summary");
     const checksList = document.querySelector("#checks");
@@ -34,6 +35,10 @@
       const result = analyzePassword(passwordInput.value);
       rating.textContent = result.rating;
       scoreLabel.textContent = result.score + " / 100";
+      meter.setAttribute("aria-valuenow", String(result.score));
+      meter.setAttribute("aria-valuetext", result.checks.length
+        ? result.rating + ", " + result.score + " out of 100"
+        : "Not assessed");
       meterFill.style.width = result.score + "%";
       meterFill.style.background = result.score < 30 ? "var(--red)" : result.score < 55 ? "var(--amber)" : "var(--green)";
       summary.textContent = result.summary;
