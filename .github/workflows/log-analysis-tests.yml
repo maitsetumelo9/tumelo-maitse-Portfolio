@@ -7,6 +7,7 @@ on:
       - "projects/log-analysis-dashboard/**"
       - "projects/soc-analyst-investigation-lab/**"
       - "projects/threat-intelligence-ioc-analyzer/**"
+      - "projects/web-security-practice-lab/**"
       - ".github/workflows/log-analysis-tests.yml"
   pull_request:
     paths:
@@ -35,3 +36,5 @@ jobs:
         run: node projects/soc-analyst-investigation-lab/test.js
       - name: Run IOC analyzer tests
         run: node projects/threat-intelligence-ioc-analyzer/test.js
+      - name: Run web security practice lab tests
+        run: node projects/web-security-practice-lab/test.js
