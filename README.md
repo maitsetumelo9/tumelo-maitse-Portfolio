@@ -26,7 +26,10 @@ I am building practical projects to demonstrate my developing skills in programm
 - **[Hash & Encoding Lab](projects/hash-encoding-lab/README.md)** — Base64 encode/decode and SHA-256 hashing with the Web Crypto API.
 - **[Network Recon Lab](projects/network-recon-lab/README.md)** — offline interpretation of fictional Nmap-style output and common ports; it does not scan networks.
 - **[Log Analysis Dashboard](projects/log-analysis-dashboard/README.md)** — validates synthetic authentication logs, correlates five explainable detections, captures analyst conclusions, exports reports, and includes automated tests.
-- **[SOC Analyst Investigation Lab](projects/soc-analyst-investigation-lab/README.md)** — three guided synthetic incident cases, evidence timelines, an analyst checklist, investigation conclusions, JSON reports, and tests.\n- **[LearnLab Student Platform MVP](projects/student-learning-platform/README.md)** — lessons, quizzes, explanations, and browser-local progress.
+- **[SOC Analyst Investigation Lab](projects/soc-analyst-investigation-lab/README.md)** — three guided synthetic incident cases, evidence timelines, an analyst checklist, investigation conclusions, JSON reports, and tests.
+- **[Threat Intelligence & IOC Analyzer](projects/threat-intelligence-ioc-analyzer/README.md)** — offline IOC format triage, deduplication, heuristic explanations, JSON export, and automated tests; no reputation lookups.
+- **[Web Security Practice Lab](projects/web-security-practice-lab/README.md)** — safe offline simulations of XSS, SQL injection, and access control with remediation guidance and automated tests.
+- **[LearnLab Student Platform MVP](projects/student-learning-platform/README.md)** — lessons, quizzes, explanations, and browser-local progress.
 - **[JobTrack Application Tracker MVP](projects/secure-job-tracker/README.md)** — application CRUD, search/filter, status changes, follow-up dates, and CSV export.
 
 The two full-stack concepts are currently frontend MVPs. Authentication, server-side persistence, and deployment of a backend remain future milestones; the current browser demos do not claim those features.
