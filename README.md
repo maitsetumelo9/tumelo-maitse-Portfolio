@@ -22,7 +22,7 @@ I am building practical projects to demonstrate my developing skills in programm
 
 ## Projects
 
-### Working browser demos
+### Working browser demos and offline labs
 
 - **[Password Strength Analyzer](projects/password-strength-analyzer/README.md)** — transparent password-strength heuristics, browser-side analysis, and a Node.js test script.
 - **[Hash & Encoding Lab](projects/hash-encoding-lab/README.md)** — Base64 encode/decode and SHA-256 hashing with the Web Crypto API.
@@ -32,9 +32,12 @@ I am building practical projects to demonstrate my developing skills in programm
 - **[Threat Intelligence & IOC Analyzer](projects/threat-intelligence-ioc-analyzer/README.md)** — offline IOC format triage, deduplication, heuristic explanations, JSON export, and automated tests; no reputation lookups.
 - **[Web Security Practice Lab](projects/web-security-practice-lab/README.md)** — safe offline simulations of XSS, SQL injection, and access control with remediation guidance and automated tests.
 - **[LearnLab Student Platform MVP](projects/student-learning-platform/README.md)** — lessons, quizzes, explanations, and browser-local progress.
-- **[JobTrack Secure Application Tracker](projects/secure-job-tracker/README.md)** — Supabase Auth, PostgreSQL-backed application CRUD, per-user row-level security policies, input validation, safer CSV export, and automated tests. Requires an active Supabase project and the included SQL migration.
 
-LearnLab remains a browser-only frontend MVP. JobTrack now includes the Supabase integration code and database migration, but its cloud features require configuration of an active Supabase project before they can be used.
+LearnLab is a browser-only frontend MVP. JobTrack includes Supabase integration code and a database migration, but its cloud features are not live until an active Supabase project is configured and the migration is applied.
+
+### Setup-required integration
+
+- **[JobTrack Secure Application Tracker](projects/secure-job-tracker/README.md)** — Supabase Auth, PostgreSQL-backed application CRUD, per-user row-level security policies, input validation, safer CSV export, and automated tests. Requires an active Supabase project and the included SQL migration.
 
 ## Run the password analyzer
 
