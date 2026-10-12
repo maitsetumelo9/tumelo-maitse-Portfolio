@@ -30,9 +30,9 @@ I am building practical projects to demonstrate my developing skills in programm
 - **[Threat Intelligence & IOC Analyzer](projects/threat-intelligence-ioc-analyzer/README.md)** — offline IOC format triage, deduplication, heuristic explanations, JSON export, and automated tests; no reputation lookups.
 - **[Web Security Practice Lab](projects/web-security-practice-lab/README.md)** — safe offline simulations of XSS, SQL injection, and access control with remediation guidance and automated tests.
 - **[LearnLab Student Platform MVP](projects/student-learning-platform/README.md)** — lessons, quizzes, explanations, and browser-local progress.
-- **[JobTrack Application Tracker MVP](projects/secure-job-tracker/README.md)** — application CRUD, search/filter, status changes, follow-up dates, and CSV export.
+- **[JobTrack Secure Application Tracker](projects/secure-job-tracker/README.md)** — Supabase Auth, PostgreSQL-backed application CRUD, per-user row-level security policies, input validation, safer CSV export, and automated tests. Requires an active Supabase project and the included SQL migration.
 
-The two full-stack concepts are currently frontend MVPs. Authentication, server-side persistence, and deployment of a backend remain future milestones; the current browser demos do not claim those features.
+LearnLab remains a browser-only frontend MVP. JobTrack now includes the Supabase integration code and database migration, but its cloud features require configuration of an active Supabase project before they can be used.
 
 ## Run the password analyzer
 
