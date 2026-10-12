@@ -36,5 +36,5 @@ assert.equal(core.csvCell('say "hi"'), '"say ""hi"""');
 assert.equal(core.csvCell("=HYPERLINK(\"https://bad.example\")"), '"\'=HYPERLINK(""https://bad.example"")"');
 const csv = core.toCsv([{ ...valid, company: "=1+1" }]);
 assert.match(csv, /"'=1\+1"/);
-assert.match(csv, /Company,Role,Application date/);
+assert.match(csv, /"Company","Role","Application date"/);
 console.log("JobTrack core tests passed.");
