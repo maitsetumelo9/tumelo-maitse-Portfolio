@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07130f">
+<meta name="description" content="A guided SOC analyst investigation lab using synthetic security incidents, evidence review, incident timelines, and report exports.">
+<title>SOC Analyst Investigation Lab | 0xDev</title>
+<style>
+:root{color-scheme:dark;--bg:#07130f;--panel:#0b1c15;--line:#24543a;--green:#65ff9a;--muted:#a4b8aa;--text:#edf7ef;--amber:#d8f59c;--red:#ff8f8f;--orange:#ffc078}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#103622,transparent 40%),var(--bg);color:var(--text);font:15px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}.wrap{max-width:1120px;width:calc(100% - 32px);margin:auto}.top{padding:22px 0;border-bottom:1px solid var(--line)}a{color:var(--green)}h1{font-size:clamp(2rem,6vw,3.3rem);line-height:1.1;margin:34px 0 12px}h2{margin-top:0}.muted{color:var(--muted)}.small{font-size:.84rem}.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px;margin:16px 0}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}select,textarea,button{font:inherit;color:var(--text);background:#06110b;border:1px solid #37634a;border-radius:5px;padding:10px}select{max-width:100%}textarea{width:100%;min-height:100px;margin:8px 0}button{cursor:pointer;background:var(--green);color:#06110b;font-weight:800}button.secondary{background:transparent;color:var(--green)}button:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:3px}.statgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.stat{border:1px solid var(--line);padding:12px;border-radius:6px}.stat strong{display:block;color:var(--green);font-size:1.4rem}.stat span{font-size:.8rem;color:var(--muted)}.evidence{border:1px solid var(--line);border-radius:6px;padding:12px;margin:10px 0}.tag{display:inline-block;border:1px solid #285a3e;border-radius:3px;padding:2px 7px;color:var(--green);font-size:.75rem;margin-right:5px}.event{border-bottom:1px solid var(--line);padding:9px 0;display:grid;grid-template-columns:180px 1fr;gap:10px;overflow-wrap:anywhere}.event:last-child{border-bottom:0}.notice{border-left:3px solid var(--amber);padding:9px 12px;background:#0a1710}.checklist{display:grid;gap:10px}.checklist label{display:flex;gap:10px;align-items:flex-start}.checklist input{margin-top:6px;accent-color:var(--green)}.finding{border-left:4px solid var(--orange);padding:12px;background:#08150e;margin:10px 0}.finding.critical{border-left-color:var(--red)}.finding strong{color:var(--green)}.hidden{display:none}footer{padding:22px 0;color:var(--muted);font-size:.82rem}@media(max-width:700px){.row{grid-template-columns:1fr}.statgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.event{grid-template-columns:1fr;gap:2px}}
+</style>
+</head>
+<body><div class="wrap">
+<header class="top"><a href="../../index.html">← 0xDev portfolio</a> / Defensive Security / SOC Investigation</header>
+<main>
+<h1>SOC Analyst <span style="color:var(--green)">Investigation Lab_</span></h1>
+<p class="muted">Practise a repeatable analyst workflow: understand the alert, inspect evidence, test alternative explanations, document a defensible conclusion, and export a report.</p>
+<div class="notice small">Training environment only. All cases and IPs are synthetic. The lab runs locally in your browser and makes no network requests. An alert is a lead to investigate—not proof of compromise.</div>
+<section class="panel">
+<h2>1. Select an incident case</h2>
+<div class="actions"><label for="caseSelect">Case file</label><select id="caseSelect"><option value="spray">CASE-001 · Multiple accounts targeted</option><option value="success">CASE-002 · Login succeeds after failures</option><option value="change">CASE-003 · Privilege change review</option></select><button id="loadCase">Load case</button></div>
+<div id="brief" class="muted"></div>
+</section>
+<section class="panel">
+<h2>2. Understand the alert</h2>
+<div class="statgrid"><div class="stat"><strong id="caseId">—</strong><span>Case ID</span></div><div class="stat"><strong id="priority">—</strong><span>Initial priority</span></div><div class="stat"><strong id="eventCount">0</strong><span>Evidence events</span></div><div class="stat"><strong id="alertCount">0</strong><span>Detection findings</span></div></div>
+<h3>Case evidence</h3><div id="timeline" class="muted">Load a case to inspect its event timeline.</div>
+</section>
+<section class="panel">
+<h2>3. Detection findings</h2><p class="muted small">These rule results help you focus your investigation. Verify them against context and other evidence before deciding.</p><div id="findings" class="muted">No findings loaded.</div>
+</section>
+<div class="row">
+<section class="panel">
+<h2>4. Analyst investigation checklist</h2>
+<div class="checklist">
+<label><input type="checkbox" class="task" value="scope"> Confirm the time range, affected identity, and alert scope.</label>
+<label><input type="checkbox" class="task" value="evidence"> Record the events and detection evidence that support the hypothesis.</label>
+<label><input type="checkbox" class="task" value="alternatives"> Consider benign explanations, false positives, and missing evidence.</label>
+<label><input type="checkbox" class="task" value="response"> Recommend proportionate next steps; avoid disruptive action without verification.</label>
+</div>
+<p class="muted small">Complete each item as you work through the case. Checklist state is included in your exported report.</p>
+</section>
+<section class="panel">
+<h2>5. Record your conclusion</h2>
+<label for="conclusion">Investigation conclusion</label><select id="conclusion" style="width:100%"><option value="undetermined">Undetermined — more evidence needed</option><option value="likely_benign">Likely benign / expected activity</option><option value="suspicious_escalate">Suspicious — escalate for review</option><option value="confirmed_incident">Confirmed incident — independently verified</option><option value="false_positive">False positive / rule not applicable</option></select>
+<label for="notes">Analyst notes</label><textarea id="notes" maxlength="5000" placeholder="What does the evidence show? What remains unknown?"></textarea>
+<label for="recommendations">Recommended next steps</label><textarea id="recommendations" maxlength="3000" placeholder="List verification steps and a proportionate response."></textarea>
+<div class="actions"><button id="export">Export investigation report (JSON)</button><button class="secondary" id="reset">Reset assessment</button></div>
+<p id="status" class="muted small" aria-live="polite">Your notes stay in this page until you leave or reset. Export a report to keep a copy.</p>
+</section>
+</div>
+<section class="panel">
+<h2>Analyst reference: a useful report should explain</h2>
+<ul class="muted"><li>What triggered the investigation and which systems or identities are in scope.</li><li>Which events support the hypothesis, with timestamps and source context.</li><li>What other explanations were considered and what evidence is still missing.</li><li>Why the chosen severity and conclusion are proportionate.</li><li>What to verify next, who should be informed, and what should be preserved.</li></ul>
+</section>
+</main>
+<footer>0xDev · SOC analyst practice · Synthetic cases · Shared detection engine from the Log Analysis Dashboard</footer>
+</div>
+<script src="../log-analysis-dashboard/detection-engine.js"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const cases = {
+ spray: {id:"CASE-001",title:"Multiple accounts targeted",priority:"High",brief:"A single source generates repeated authentication failures against several accounts over a short period. Determine whether the pattern is consistent with password spraying, approved testing, or another explanation.",events:[
+ "2026-10-11T08:00:00Z,192.0.2.44,failed_login,alex","2026-10-11T08:01:00Z,192.0.2.44,failed_login,blair","2026-10-11T08:02:00Z,192.0.2.44,failed_login,casey","2026-10-11T08:03:00Z,192.0.2.44,failed_login,drew","2026-10-11T08:04:00Z,192.0.2.44,failed_login,erin","2026-10-11T08:05:00Z,192.0.2.51,failed_login,alex","2026-10-11T08:06:00Z,192.0.2.52,failed_login,alex","2026-10-11T08:07:00Z,192.0.2.53,failed_login,alex","2026-10-11T08:10:00Z,192.0.2.60,successful_login,tumelo"]},
+ success: {id:"CASE-002",title:"Login succeeds after failures",priority:"Critical review",brief:"One account has several failed logins followed by a successful login from the same source. This can indicate account compromise, but a forgotten password or legitimate user retry is also possible. Check identity context and session activity.",events:[
+ "2026-10-11T09:00:00Z,192.0.2.77,failed_login,alex","2026-10-11T09:02:00Z,192.0.2.77,failed_login,alex","2026-10-11T09:04:00Z,192.0.2.77,failed_login,alex","2026-10-11T09:05:00Z,192.0.2.77,successful_login,alex","2026-10-11T09:07:00Z,192.0.2.77,access_denied,alex","2026-10-11T09:08:00Z,192.0.2.77,password_reset,alex"]},
+ change: {id:"CASE-003",title:"Privilege change review",priority:"Medium review",brief:"An audit event records a privilege change for an administrator account. A privilege change may be legitimate. Verify the approved change request, actor, target, and surrounding audit trail before treating it as suspicious.",events:[
+ "2026-10-11T11:00:00Z,192.0.2.20,successful_login,admin","2026-10-11T11:02:00Z,192.0.2.20,privilege_change,admin","2026-10-11T11:04:00Z,192.0.2.20,successful_login,admin"]}
+};
+let activeCase = null, activeEvents = [], activeFindings = [];
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function assessment(){return {conclusion:$("conclusion").value,analystNotes:$("notes").value.trim(),recommendedNextSteps:$("recommendations").value.trim(),checklist:Object.fromEntries([...document.querySelectorAll(".task")].map(c=>[c.value,c.checked])),completedChecklist:[...document.querySelectorAll(".task")].filter(c=>c.checked).map(c=>c.value)};}
+function loadCase(){
+ activeCase=cases[$("caseSelect").value]; const parsed=LogAnalysisEngine.parseLogs(activeCase.events.join("\n")); activeEvents=parsed.events; activeFindings=LogAnalysisEngine.analyzeEvents(activeEvents);
+ $("caseId").textContent=activeCase.id; $("priority").textContent=activeCase.priority; $("eventCount").textContent=activeEvents.length; $("alertCount").textContent=activeFindings.length;
+ $("brief").innerHTML="<h3>"+esc(activeCase.title)+"</h3><p>"+esc(activeCase.brief)+"</p>";
+ $("timeline").innerHTML=activeEvents.map(e=>'<div class="event"><div>'+esc(e.timestamp)+'</div><div><span class="tag">'+esc(e.eventType)+'</span>'+esc(e.sourceIp)+' · account <strong>'+esc(e.username)+'</strong></div></div>').join("");
+ $("findings").innerHTML=activeFindings.length?activeFindings.map(f=>'<article class="finding '+esc(f.severity)+'"><span class="tag">'+esc(f.ruleId)+'</span><strong>'+esc(f.title)+'</strong><p>'+esc(f.summary)+'</p><p><b>Evidence:</b> '+f.evidence.length+' event(s)</p><p><b>Analyst action:</b> '+esc(f.recommendation)+'</p></article>').join(""):'No rules triggered. A quiet result does not prove an incident is absent; review the available evidence and detection coverage.';
+ $("status").textContent="Case loaded. Review the timeline and findings, then complete the checklist and conclusion.";
+}
+function exportReport(){
+ if(!activeCase)loadCase();
+ const report={reportType:"0xDev SOC Analyst Investigation Lab",generatedAt:new Date().toISOString(),case:{id:activeCase.id,title:activeCase.title,initialPriority:activeCase.priority,brief:activeCase.brief},summary:LogAnalysisEngine.summarize(activeEvents,activeFindings),events:activeEvents.map(e=>({timestamp:e.timestamp,sourceIp:e.sourceIp,eventType:e.eventType,username:e.username})),findings:activeFindings.map(f=>({ruleId:f.ruleId,title:f.title,severity:f.severity,confidence:f.confidence,summary:f.summary,evidence:f.evidence.map(e=>({timestamp:e.timestamp,sourceIp:e.sourceIp,eventType:e.eventType,username:e.username})),recommendation:f.recommendation})),assessment:assessment(),limitations:["Synthetic educational data only.","Detection rules are heuristics and do not establish compromise.","Verify findings against authorised sources and organisational procedures."]};
+ const blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=activeCase.id.toLowerCase()+"-investigation-report.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);$("status").textContent="Report export requested. Keep the report in an appropriate secure location.";
+}
+$("loadCase").addEventListener("click",loadCase);$("export").addEventListener("click",exportReport);
+$("reset").addEventListener("click",()=>{document.querySelectorAll(".task").forEach(c=>c.checked=false);$("conclusion").value="undetermined";$("notes").value="";$("recommendations").value="";$("status").textContent="Assessment reset. The selected case and evidence remain loaded.";});
+$("caseSelect").addEventListener("change",()=>{loadCase();document.querySelectorAll(".task").forEach(c=>c.checked=false);$("conclusion").value="undetermined";$("notes").value="";$("recommendations").value="";});
+loadCase();
+</script>
+</body>
+</html>
