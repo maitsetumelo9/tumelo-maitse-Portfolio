@@ -1,0 +1,14 @@
+"use strict";
+const assert=require("node:assert/strict");
+const {escapeHTML,simulateXSS,simulateSQL,simulateAccessControl}=require("./lab.js");
+assert.equal(escapeHTML("<script>alert(1)</script>"),"&lt;script&gt;alert(1)&lt;/script&gt;");
+assert.equal(simulateXSS("<img src=x onerror=alert(1)>").safeRenderedText,"<img src=x onerror=alert(1)>");
+const sql=simulateSQL("' OR '1'='1");
+assert.match(sql.unsafeIllustration,/OR/);
+assert.match(sql.safeQuery, /\?/);
+assert.deepEqual(sql.parameters,["<username parameter>","<password hash parameter>"]);
+assert.equal(simulateAccessControl("alice","report-101").secureDecision.decision,"allow");
+assert.equal(simulateAccessControl("mallory","report-101").secureDecision.decision,"deny");
+assert.equal(simulateAccessControl("alice","report-202").secureDecision.decision,"deny");
+assert.equal(simulateAccessControl("bob","missing").secureDecision.decision,"deny");
+console.log("Web security practice lab tests passed.");
