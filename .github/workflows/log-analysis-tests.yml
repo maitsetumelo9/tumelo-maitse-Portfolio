@@ -12,6 +12,7 @@ on:
     paths:
       - "projects/log-analysis-dashboard/**"
       - "projects/soc-analyst-investigation-lab/**"
+      - "projects/threat-intelligence-ioc-analyzer/**"
       - ".github/workflows/log-analysis-tests.yml"
   workflow_dispatch:
 
@@ -32,3 +33,5 @@ jobs:
         run: node projects/log-analysis-dashboard/test.js
       - name: Run SOC investigation lab tests
         run: node projects/soc-analyst-investigation-lab/test.js
+      - name: Run IOC analyzer tests
+        run: node projects/threat-intelligence-ioc-analyzer/test.js
