@@ -39,6 +39,12 @@
 <div class="rule"><strong>AUTH-04 · Success after failures</strong><div class="small muted">A successful login follows 3+ failures for the same account and source within 15 minutes.</div></div>
 <div class="rule"><strong>IAM-01 · Privilege change</strong><div class="small muted">A privilege-change event is flagged for review, not automatically treated as malicious.</div></div>
 </div></section>
+<section class="panel" aria-labelledby="assessmentHeading"><h2 id="assessmentHeading">5. Analyst notes &amp; investigation conclusion</h2>
+<p class="muted small">Document what the evidence supports, what remains unknown, and what should happen next. These fields are included in exported reports.</p>
+<div class="actions"><label for="conclusion">Conclusion</label><select id="conclusion"><option value="undetermined">Undetermined — more evidence needed</option><option value="likely_benign">Likely benign / expected activity</option><option value="suspicious_escalate">Suspicious — escalate for review</option><option value="confirmed_incident">Confirmed incident (externally verified)</option><option value="false_positive">False positive / rule not applicable</option></select></div>
+<label for="analystNotes">Analyst notes</label><textarea id="analystNotes" style="min-height:110px" maxlength="5000" placeholder="Evidence reviewed, why the alert may or may not be suspicious, and remaining uncertainties..."></textarea>
+<label for="nextSteps">Next steps</label><textarea id="nextSteps" style="min-height:90px" maxlength="3000" placeholder="For example: verify account owner, review MFA/session history, compare with approved testing, preserve relevant logs..."></textarea>
+<p class="muted small">Keep notes factual. Do not claim a compromise is confirmed unless independent evidence supports that conclusion.</p></section>
 <section class="panel"><h2>Analyst checklist</h2><ul class="muted"><li>Confirm the time range and whether the source/account activity is expected.</li><li>Check surrounding events, identity context, MFA, and any approved testing or maintenance.</li><li>Record evidence and reasoning; note false-positive possibilities.</li><li>Follow your organisation's incident process before blocking accounts or addresses.</li></ul></section>
 </main>
 <footer>0xDev · Offline defensive learning tool · Synthetic data · No third-party libraries</footer>
@@ -76,6 +82,8 @@ const scenarios = {
   ]
 };
 let latest = null;
+const CONCLUSION_LABELS = {undetermined:"Undetermined — more evidence needed",likely_benign:"Likely benign / expected activity",suspicious_escalate:"Suspicious — escalate for review",confirmed_incident:"Confirmed incident (externally verified)",false_positive:"False positive / rule not applicable"};
+function getAssessment(){return {conclusion: $("conclusion").value, conclusionLabel: CONCLUSION_LABELS[$("conclusion").value] || "Undetermined", analystNotes: $("analystNotes").value.trim(), nextSteps: $("nextSteps").value.trim()};}
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
 }
@@ -94,7 +102,7 @@ function analyze() {
   const parsed = LogAnalysisEngine.parseLogs($("logs").value);
   const incidents = LogAnalysisEngine.analyzeEvents(parsed.events);
   const summary = LogAnalysisEngine.summarize(parsed.events, incidents);
-  latest = { generatedAt: new Date().toISOString(), summary, incidents, events: parsed.events.map(({line, ...e}) => ({...e, time: e.timestamp})), errors: parsed.errors };
+  latest = { generatedAt: new Date().toISOString(), summary, incidents, events: parsed.events.map(({line, ...e}) => ({...e, time: e.timestamp})), errors: parsed.errors, analystAssessment: getAssessment() };
   ["total","failures","successes","sources","alerts"].forEach((id, i) => {
     const values = [summary.totalEvents, summary.failedLogins, summary.successfulLogins, summary.uniqueSources, incidents.length];
     $(id).textContent = values[i];
@@ -109,7 +117,7 @@ function download(filename, content, type) {
   const a = document.createElement("a"); a.href = url; a.download = filename; a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-function csvCell(value) { const s = String(value == null ? "" : value); return '"' + s.replace(/"/g, '""') + '"'; }
+function csvCell(value) { let s = String(value == null ? "" : value); if (/^[\s]*[=+\-@]/.test(s) || /^[\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; }
 $("loadScenario").addEventListener("click", loadScenario);
 $("analyze").addEventListener("click", analyze);
 $("clear").addEventListener("click", () => {
@@ -117,11 +125,12 @@ $("clear").addEventListener("click", () => {
   ["total","failures","successes","sources","alerts"].forEach(id => $(id).textContent = "0");
   latest = null; $("exportJson").disabled = true; $("exportCsv").disabled = true;
 });
-$("exportJson").addEventListener("click", () => { if (latest) download("0xdev-log-analysis-report.json", JSON.stringify(latest, null, 2), "application/json"); });
+$("exportJson").addEventListener("click", () => { if (latest) { latest.analystAssessment = getAssessment(); download("0xdev-log-analysis-report.json", JSON.stringify(latest, null, 2), "application/json"); } });
 $("exportCsv").addEventListener("click", () => {
   if (!latest) return;
-  const rows = [["rule_id","severity","confidence","title","summary","evidence_count","evidence","recommendation"]];
-  latest.incidents.forEach(i => rows.push([i.ruleId,i.severity,i.confidence,i.title,i.summary,i.evidence.length,i.evidence.map(e => e.timestamp + " " + e.sourceIp + " " + e.eventType + " " + e.username).join(" | "),i.recommendation]));
+  latest.analystAssessment = getAssessment();
+  const rows = [["rule_id","severity","confidence","title","summary","evidence_count","evidence","recommendation","analyst_conclusion","analyst_notes","next_steps"]];
+  latest.incidents.forEach(i => rows.push([i.ruleId,i.severity,i.confidence,i.title,i.summary,i.evidence.length,i.evidence.map(e => e.timestamp + " " + e.sourceIp + " " + e.eventType + " " + e.username).join(" | "),i.recommendation,latest.analystAssessment.conclusionLabel,latest.analystAssessment.analystNotes,latest.analystAssessment.nextSteps]));
   download("0xdev-log-analysis-incidents.csv", rows.map(row => row.map(csvCell).join(",")).join("\r\n"), "text/csv;charset=utf-8");
 });
 loadScenario();
