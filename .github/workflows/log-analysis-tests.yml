@@ -14,6 +14,7 @@ on:
       - "projects/log-analysis-dashboard/**"
       - "projects/soc-analyst-investigation-lab/**"
       - "projects/threat-intelligence-ioc-analyzer/**"
+      - "projects/web-security-practice-lab/**"
       - ".github/workflows/log-analysis-tests.yml"
   workflow_dispatch:
 
