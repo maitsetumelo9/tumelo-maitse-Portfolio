@@ -25,7 +25,7 @@ I am building practical projects to demonstrate my developing skills in programm
 - **[Password Strength Analyzer](projects/password-strength-analyzer/README.md)** — transparent password-strength heuristics, browser-side analysis, and a Node.js test script.
 - **[Hash & Encoding Lab](projects/hash-encoding-lab/README.md)** — Base64 encode/decode and SHA-256 hashing with the Web Crypto API.
 - **[Network Recon Lab](projects/network-recon-lab/README.md)** — offline interpretation of fictional Nmap-style output and common ports; it does not scan networks.
-- **[Log Analysis Dashboard](projects/log-analysis-dashboard/README.md)** — parses synthetic authentication logs and demonstrates a repeated-failure detection rule.
+- **[Log Analysis Dashboard](projects/log-analysis-dashboard/README.md)** — validates synthetic authentication logs, correlates five explainable detections, captures analyst conclusions, exports reports, and includes automated tests.
 - **[LearnLab Student Platform MVP](projects/student-learning-platform/README.md)** — lessons, quizzes, explanations, and browser-local progress.
 - **[JobTrack Application Tracker MVP](projects/secure-job-tracker/README.md)** — application CRUD, search/filter, status changes, follow-up dates, and CSV export.
 
