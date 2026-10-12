@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
     paths:
+      - "projects/password-strength-analyzer/**"
+      - "projects/hash-encoding-lab/**"
+      - "projects/network-recon-lab/**"
+      - "projects/student-learning-platform/**"
       - "projects/log-analysis-dashboard/**"
       - "projects/soc-analyst-investigation-lab/**"
       - "projects/threat-intelligence-ioc-analyzer/**"
@@ -12,6 +16,10 @@ on:
       - ".github/workflows/log-analysis-tests.yml"
   pull_request:
     paths:
+      - "projects/password-strength-analyzer/**"
+      - "projects/hash-encoding-lab/**"
+      - "projects/network-recon-lab/**"
+      - "projects/student-learning-platform/**"
       - "projects/log-analysis-dashboard/**"
       - "projects/soc-analyst-investigation-lab/**"
       - "projects/threat-intelligence-ioc-analyzer/**"
@@ -33,6 +41,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Run password analyzer unit tests
+        run: node projects/password-strength-analyzer/test.js
       - name: Run log analysis unit tests
         run: node projects/log-analysis-dashboard/test.js
       - name: Run SOC investigation lab tests
