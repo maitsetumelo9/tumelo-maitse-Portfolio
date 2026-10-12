@@ -3,6 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.0";
 const CORE = window.JobTrackCore;
 const CONFIG_KEY = "jobtrack-supabase-config-v1";
 let supabase = null;
+let authSubscription = null;
 let currentUser = null;
 let applications = [];
 const $ = (id) => document.getElementById(id);
@@ -32,6 +33,11 @@ function connectFromSavedConfig() {
   const config = getConfig();
   if (!config?.url || !config?.publishableKey) {
     showSetup(true);
+    return false;
+  }
+  if (CORE.isServiceRoleKey(config.publishableKey)) {
+    showSetup(true);
+    showMessage("This saved key is a secret/service-role key. Remove it and enter a publishable or anon key instead.", true);
     return false;
   }
   try {
@@ -112,6 +118,26 @@ async function loadApplications() {
   } else applications = data || [];
   render();
 }
+function watchAuthState() {
+  if (authSubscription) authSubscription.unsubscribe();
+  const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+    const nextUser = session?.user || null;
+    currentUser = nextUser;
+    $("sessionBar").hidden = !nextUser;
+    $("authPanel").hidden = Boolean(nextUser);
+    $("trackerPanel").hidden = !nextUser;
+    $("signedInAs").textContent = nextUser?.email || "";
+
+    // Avoid issuing Supabase queries inside the auth callback itself; defer
+    // data loading until the callback has returned.
+    window.setTimeout(() => {
+      if (nextUser && currentUser?.id === nextUser.id) void loadApplications();
+      else if (!nextUser && !currentUser) { applications = []; render(); }
+    }, 0);
+  });
+  authSubscription = data.subscription;
+}
+
 async function refreshSession() {
   const { data, error } = await supabase.auth.getSession();
   if (error) showMessage(error.message, true);
@@ -133,13 +159,14 @@ $("setupForm").addEventListener("submit", (event) => {
     if (parsed.protocol !== "https:" || !parsed.hostname.endsWith(".supabase.co")) {
       throw new Error("Use the HTTPS Project URL ending in .supabase.co.");
     }
-    if (!publishableKey || publishableKey.startsWith("sb_secret_") || publishableKey.startsWith("service_role")) {
-      throw new Error("Use a publishable key only. Never enter a secret or service_role key.");
+    if (!publishableKey || CORE.isServiceRoleKey(publishableKey)) {
+      throw new Error("Use a publishable/anon key only. Never enter a secret or service_role key, including legacy JWT service-role keys.");
     }
     localStorage.setItem(CONFIG_KEY, JSON.stringify({ url: parsed.origin, publishableKey }));
     if (connectFromSavedConfig()) {
       $("projectUrl").value = "";
       $("publishableKey").value = "";
+      watchAuthState();
       showMessage("Connection settings saved in this browser. Sign in to continue.");
       refreshSession();
     }
@@ -222,14 +249,6 @@ $("export").addEventListener("click", () => {
 $("date").value = new Date().toISOString().slice(0, 10);
 
 if (connectFromSavedConfig()) {
-  supabase.auth.onAuthStateChange((_event, session) => {
-    currentUser = session?.user || null;
-    $("sessionBar").hidden = !currentUser;
-    $("authPanel").hidden = Boolean(currentUser);
-    $("trackerPanel").hidden = !currentUser;
-    $("signedInAs").textContent = currentUser?.email || "";
-    if (currentUser) loadApplications();
-    else { applications = []; render(); }
-  });
+  watchAuthState();
   refreshSession();
 }
