@@ -6,6 +6,7 @@ on:
     paths:
       - "projects/log-analysis-dashboard/**"
       - "projects/soc-analyst-investigation-lab/**"
+      - "projects/threat-intelligence-ioc-analyzer/**"
       - ".github/workflows/log-analysis-tests.yml"
   pull_request:
     paths:
