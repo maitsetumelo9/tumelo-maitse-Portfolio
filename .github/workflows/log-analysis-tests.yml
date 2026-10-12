@@ -4,11 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "projects/log-analysis-dashboard/**"\n      - "projects/soc-analyst-investigation-lab/**"
+      - "projects/log-analysis-dashboard/**"
+      - "projects/soc-analyst-investigation-lab/**"
       - ".github/workflows/log-analysis-tests.yml"
   pull_request:
     paths:
       - "projects/log-analysis-dashboard/**"
+      - "projects/soc-analyst-investigation-lab/**"
       - ".github/workflows/log-analysis-tests.yml"
   workflow_dispatch:
 
@@ -27,3 +29,5 @@ jobs:
           node-version: 20
       - name: Run log analysis unit tests
         run: node projects/log-analysis-dashboard/test.js
+      - name: Run SOC investigation lab tests
+        run: node projects/soc-analyst-investigation-lab/test.js
