@@ -11,8 +11,9 @@ An offline defensive-security learning tool that parses synthetic authentication
   - `AUTH-04`: successful login after repeated failures for the same account/source within fifteen minutes.
   - `IAM-01`: privilege-change events flagged for review.
 - Incident severity and confidence labels, evidence, and recommended analyst actions.
-- Three synthetic scenarios, summary metrics, chronological timeline, and JSON/CSV report export.
-- Safe output escaping and automated tests using Node.js built-in assertions.
+- Three synthetic scenarios, summary metrics, chronological timeline, analyst notes, a structured investigation conclusion, and JSON/CSV report export.
+- CSV formula-injection mitigation for exported user-controlled text.
+- Safe output escaping and automated tests using Node.js built-in assertions, including threshold, time-window, false-positive, and deduplication checks.
 
 ## Run the dashboard
 Open [index.html](index.html) in a modern browser. No server, package installation, API key, or external dependency is required.
@@ -42,7 +43,8 @@ Supported event types: `failed_login`, `successful_login`, `password_reset`, `ac
 2. Review invalid lines and correct format problems.
 3. Compare summary metrics and incident evidence.
 4. Treat recommendations as investigation leads, not automatic verdicts.
-5. Export the report and document the conclusion, false-positive checks, and next steps.
+5. Record an investigation conclusion, evidence-based notes, and next steps in the analyst assessment section.
+6. Export the JSON or CSV report; the assessment is included in the export.
 
 ## Security scope and limitations
 All bundled examples use synthetic events and documentation IP addresses. Detection rules are heuristics, not proof of compromise; they can produce false positives and miss activity. Time windows are simple timestamp comparisons over the supplied dataset, not streaming correlation. The tool has no authentication, server-side storage, alert delivery, IP reputation, enrichment, or production SIEM integration. Reports may contain usernames and IPs supplied by the user; do not paste secrets or sensitive personal data.
