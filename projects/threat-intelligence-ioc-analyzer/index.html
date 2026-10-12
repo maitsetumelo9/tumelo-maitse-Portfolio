@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07130f"><meta name="description" content="Offline threat intelligence indicator triage lab with explanations and JSON export.">
+<title>Threat Intelligence & IOC Analyzer | 0xDev</title>
+<style>
+:root{color-scheme:dark;--bg:#07130f;--panel:#0b1c15;--line:#1c4733;--green:#65ff9a;--muted:#a4b8aa;--text:#edf7ef;--amber:#d8f59c;--red:#ff9b91}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#103622 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}.wrap{width:min(1050px,calc(100% - 32px));margin:auto}a{color:var(--green)}header{padding:22px 0;border-bottom:1px solid var(--line)}.brand{text-decoration:none;color:var(--text);font-weight:bold}.brand b{color:var(--green)}main{padding:35px 0 55px}h1{line-height:1.15;font-size:clamp(1.8rem,5vw,3rem);margin:.3em 0}p,.muted{color:var(--muted)}.panel{border:1px solid var(--line);background:var(--panel);padding:20px;border-radius:8px;margin:18px 0}.eyebrow{color:var(--green);letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}button{font:inherit;font-weight:bold;border:1px solid var(--green);background:transparent;color:var(--green);padding:10px 14px;border-radius:5px;cursor:pointer}button.primary{background:var(--green);color:#06110b}button:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--amber);outline-offset:3px}textarea{width:100%;min-height:175px;resize:vertical;background:#050d09;border:1px solid var(--line);color:var(--text);padding:12px;font:inherit;border-radius:5px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.stat{border:1px solid var(--line);padding:12px;border-radius:5px}.stat strong{display:block;font-size:1.5rem;color:var(--green)}.result{border:1px solid var(--line);border-radius:5px;padding:14px;margin:10px 0;overflow-wrap:anywhere}.pill{display:inline-block;padding:2px 8px;border:1px solid var(--line);border-radius:99px;color:var(--amber);font-size:.8rem}.pill.invalid{color:var(--red)}.result h3{margin:6px 0}.small{font-size:.86rem}.refs li{margin:7px 0}footer{padding:18px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}@media(max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:15px}}
+</style>
+</head>
+<body><div class="wrap">
+<header><a class="brand" href="../../index.html"><b>0x</b>DEV_ / HOME</a></header>
+<main>
+<div class="eyebrow">[ Defensive security · offline lab ]</div>
+<h1>Threat Intelligence & IOC Analyzer</h1>
+<p>Classify common indicators, review basic format-based signals, remove duplicates, and prepare a structured report for an analyst. This is a triage aid—not a reputation service.</p>
+<div class="panel"><strong>Sample input</strong><p class="small">Documentation-only examples are used below. Replace them with non-sensitive data you are authorised to analyse.</p>
+<textarea id="indicators" aria-label="Indicators, one per line"># documentation examples only
+203.0.113.10
+example.com
+http://example.com/login
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+192.168.1.10
+203.0.113.10</textarea>
+<div class="actions"><button class="primary" id="analyze">Analyze indicators</button><button id="sample">Load sample</button><button id="clear">Clear</button><button id="export" disabled>Export JSON report</button></div>
+<div id="message" class="muted" role="status" aria-live="polite">Ready. Analysis runs locally in this browser.</div></div>
+<section class="panel" aria-labelledby="results-title"><h2 id="results-title">Triage results</h2><div class="stats" id="stats"><div class="stat"><strong>—</strong>Total indicators</div><div class="stat"><strong>—</strong>Review</div><div class="stat"><strong>—</strong>Context</div><div class="stat"><strong>—</strong>Invalid</div></div><div id="results"><p class="muted">Select Analyze indicators to view results.</p></div></section>
+<section class="panel"><h2>Analyst next steps</h2><ol><li>Record where the indicator came from and when it was observed.</li><li>Validate it using approved, trusted threat-intelligence sources.</li><li>Correlate with logs, endpoint evidence, and the incident timeline.</li><li>Record confidence and business context before recommending a block or containment action.</li></ol><p class="small">External references for manual follow-up:</p><ul class="refs"><li><a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer">CISA Known Exploited Vulnerabilities Catalog</a></li><li><a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATT&CK</a></li><li><a href="https://threatfox.abuse.ch/" target="_blank" rel="noopener noreferrer">abuse.ch ThreatFox</a></li><li><a href="https://safebrowsing.google.com/" target="_blank" rel="noopener noreferrer">Google Safe Browsing</a></li></ul></section>
+<div class="panel"><strong>Important limitation</strong><p class="small">No network requests, DNS queries, or reputation lookups are performed. “Review” and “context” are format-based hints only. They do not prove an indicator is malicious or safe.</p></div>
+</main><footer>0xDev · Threat Intelligence learning project · No external dependencies</footer></div>
+<script src="analyzer.js"></script>
+<script>
+(function(){
+const input=document.getElementById("indicators"),results=document.getElementById("results"),stats=document.getElementById("stats"),message=document.getElementById("message"),exportButton=document.getElementById("export");
+let latest=null;
+function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(report){
+latest=report;exportButton.disabled=false;
+const count=report.counts;
+stats.innerHTML=[["total",report.total],["review",count.review||0],["context",count.context||0],["invalid",count.invalid||0]].map(([label,value])=>'<div class="stat"><strong>'+value+'</strong>'+label.charAt(0).toUpperCase()+label.slice(1)+'</div>').join("");
+if(!report.results.length){results.innerHTML="<p>No indicators found. Enter one indicator per line.</p>";}
+else results.innerHTML=report.results.map(item=>'<article class="result"><span class="pill '+(item.risk==="invalid"?"invalid":"")+'">'+escapeHTML(item.risk.toUpperCase())+'</span> <span class="pill">'+escapeHTML(item.type)+'</span><h3>'+escapeHTML(item.value)+'</h3><p class="small">'+escapeHTML(item.reason)+'</p><p class="small muted">Input line '+item.line+'</p></article>').join("");
+message.textContent="Analyzed "+report.total+" unique indicator(s). No external lookups were made.";
+}
+document.getElementById("analyze").addEventListener("click",()=>render(IOCAnalyzer.analyze(input.value)));
+document.getElementById("sample").addEventListener("click",()=>{input.value="# documentation examples only\n203.0.113.10\nexample.com\nhttp://example.com/login\n"+"a".repeat(64)+"\n192.168.1.10\n203.0.113.10";message.textContent="Sample loaded. Select Analyze indicators.";});
+document.getElementById("clear").addEventListener("click",()=>{input.value="";latest=null;exportButton.disabled=true;results.innerHTML="<p class=\"muted\">Select Analyze indicators to view results.</p>";stats.innerHTML='<div class="stat"><strong>—</strong>Total indicators</div><div class="stat"><strong>—</strong>Review</div><div class="stat"><strong>—</strong>Context</div><div class="stat"><strong>—</strong>Invalid</div>';message.textContent="Cleared. Analysis runs locally in this browser.";});
+exportButton.addEventListener("click",()=>{if(!latest)return;const blob=new Blob([JSON.stringify(latest,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="ioc-analysis-report.json";a.click();URL.revokeObjectURL(url);message.textContent="JSON report prepared for download.";});
+render(IOCAnalyzer.analyze(input.value));
+})();
+</script></body></html>
