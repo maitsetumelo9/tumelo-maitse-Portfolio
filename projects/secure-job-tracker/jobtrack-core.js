@@ -14,6 +14,33 @@
     return text;
   }
 
+  function isValidIsoDate(value) {
+    if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value) || Number(value.slice(0, 4)) < 1) {
+      return false;
+    }
+    const parsed = new Date(value + "T00:00:00.000Z");
+    return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+  }
+
+  function isServiceRoleKey(value) {
+    if (typeof value !== "string") return false;
+    const key = value.trim();
+    if (/^(?:sb_secret_|service_role(?:$|_))/i.test(key)) return true;
+
+    // Older Supabase keys are JWTs. Decode only the payload to reject a key
+    // whose role is service_role; never log or persist it.
+    const parts = key.split(".");
+    if (parts.length !== 3) return false;
+    try {
+      let encoded = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+      encoded += "=".repeat((4 - encoded.length % 4) % 4);
+      const payload = JSON.parse(atob(encoded));
+      return payload.role === "service_role";
+    } catch {
+      return false;
+    }
+  }
+
   function validateApplication(input) {
     if (!input || typeof input !== "object") throw new TypeError("Application must be an object.");
     const company = cleanText(input.company, LIMITS.company);
@@ -23,12 +50,10 @@
     const status = input.status || "Saved";
     if (!STATUSES.includes(status)) throw new Error("Choose a supported application status.");
     const date = String(input.application_date || "");
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(Date.parse(date + "T00:00:00Z"))) {
-      throw new Error("Application date must be a valid YYYY-MM-DD date.");
-    }
+    if (!isValidIsoDate(date)) throw new Error("Application date must be a real calendar date in YYYY-MM-DD format.");
     const followUp = input.follow_up_date ? String(input.follow_up_date) : null;
-    if (followUp && (!/^\d{4}-\d{2}-\d{2}$/.test(followUp) || Number.isNaN(Date.parse(followUp + "T00:00:00Z")))) {
-      throw new Error("Follow-up date must be a valid YYYY-MM-DD date.");
+    if (followUp && !isValidIsoDate(followUp)) {
+      throw new Error("Follow-up date must be a real calendar date in YYYY-MM-DD format.");
     }
     const jobUrl = input.job_url ? String(input.job_url).trim() : "";
     if (jobUrl) {
@@ -54,5 +79,5 @@
     return [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
   }
 
-  return { STATUSES, LIMITS, validateApplication, csvCell, toCsv };
+  return { STATUSES, LIMITS, validateApplication, isValidIsoDate, isServiceRoleKey, csvCell, toCsv };
 });
