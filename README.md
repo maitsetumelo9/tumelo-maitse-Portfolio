@@ -1,5 +1,7 @@
 # Tumelo Maitse — 0xDev Portfolio
 
+[![Security Lab Tests](https://github.com/maitsetumelo9/tumelo-maitse-Portfolio/actions/workflows/log-analysis-tests.yml/badge.svg)](https://github.com/maitsetumelo9/tumelo-maitse-Portfolio/actions/workflows/log-analysis-tests.yml)
+
 **Focus:** cybersecurity learning, defensive security tooling, and full-stack development.
 
 Portfolio site: https://maitsetumelo9.github.io/tumelo-maitse-Portfolio/  
