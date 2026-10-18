@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 REQUIRED = ("project", "status", "brief", "asset_provenance", "qa_checklist")
-QA_FIELDS = ("correct_dimensions", "duration_checked", "audio_checked", "text_and_spelling_checked", "safe_areas_checked", "rights_reviewed", "human_approved")
+QA_FIELDS = ("correct_dimensions", "duration_checked", "audio_checked", "audio_listening_reviewed", "text_and_spelling_checked", "safe_areas_checked", "rights_reviewed", "human_approved")
 
 
 def validate(data):
