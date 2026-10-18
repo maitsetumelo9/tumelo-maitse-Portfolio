@@ -1,0 +1,27 @@
+{
+  "project": "AFTER THE SIGNAL",
+  "status": "prototype-assets-created-qa-pending",
+  "brief": {
+    "audience": "fans of science-fiction mystery",
+    "primary_message": "The future called. Nobody should answer.",
+    "deliverables": [
+      {"name": "promo-browser-motion", "width": 1920, "height": 1080, "duration_seconds": 15},
+      {"name": "campaign-vertical-preview", "width": 1080, "height": 1920, "duration_seconds": null},
+      {"name": "campaign-square-preview", "width": 1080, "height": 1080, "duration_seconds": null},
+      {"name": "campaign-landscape-preview", "width": 1920, "height": 1080, "duration_seconds": null}
+    ]
+  },
+  "asset_provenance": [
+    {"asset": "entertainment-supercut/index.html", "source": "original HTML, CSS, and copy authored for this portfolio", "usage_terms_reviewed": true},
+    {"asset": "campaign-motion-static/index.html", "source": "original HTML, CSS, and copy authored for this portfolio", "usage_terms_reviewed": true}
+  ],
+  "qa_checklist": {
+    "correct_dimensions": false,
+    "duration_checked": false,
+    "audio_checked": false,
+    "text_and_spelling_checked": false,
+    "safe_areas_checked": false,
+    "rights_reviewed": false,
+    "human_approved": false
+  }
+}
