@@ -28,24 +28,30 @@ def safe_repo_path(relative: str) -> Path:
 def inspect_video(path: Path) -> dict[str, Any]:
     result = subprocess.run(
         [
-            "ffprobe", "-v", "error", "-select_streams", "v:0",
-            "-show_entries", "stream=width,height,r_frame_rate",
+            "ffprobe", "-v", "error",
+            "-show_entries", "stream=codec_type,codec_name,width,height,r_frame_rate,sample_rate,channels",
             "-show_entries", "format=duration,size",
             "-of", "json", str(path),
         ],
         check=True, capture_output=True, text=True,
     )
     data = json.loads(result.stdout)
-    if not data.get("streams"):
+    streams = data.get("streams", [])
+    video = next((stream for stream in streams if stream.get("codec_type") == "video"), None)
+    audio = next((stream for stream in streams if stream.get("codec_type") == "audio"), None)
+    if video is None:
         raise ValueError(f"No video stream found in {path}")
-    stream = data["streams"][0]
     media = data.get("format", {})
     return {
-        "width": int(stream["width"]),
-        "height": int(stream["height"]),
-        "frame_rate": stream.get("r_frame_rate"),
+        "width": int(video["width"]),
+        "height": int(video["height"]),
+        "frame_rate": video.get("r_frame_rate"),
         "duration_seconds": float(media["duration"]),
         "size_bytes": int(media["size"]),
+        "has_audio": audio is not None,
+        "audio_codec": audio.get("codec_name") if audio else None,
+        "audio_sample_rate": int(audio["sample_rate"]) if audio and audio.get("sample_rate") else None,
+        "audio_channels": int(audio["channels"]) if audio and audio.get("channels") else None,
     }
 
 
@@ -57,6 +63,10 @@ def check_metadata(actual: dict[str, Any], expected: dict[str, Any]) -> list[str
     duration = expected.get("duration_seconds")
     if duration is not None and abs(float(actual.get("duration_seconds", 0)) - float(duration)) > 0.15:
         errors.append(f"duration_seconds: expected {duration}, got {actual.get('duration_seconds')}")
+    if "audio" in expected and actual.get("has_audio") is not bool(expected["audio"]):
+        errors.append(f"audio: expected audio={expected['audio']}, got has_audio={actual.get('has_audio')}")
+    if expected.get("audio") is True and not actual.get("audio_codec"):
+        errors.append("audio_codec: expected an encoded audio stream")
     return errors
 
 
@@ -126,7 +136,7 @@ def main() -> int:
     report: dict[str, Any] = {
         "project": manifest.get("project"),
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
-        "pipeline_status": "render-checks-passed-human-review-pending",
+        "pipeline_status": "render-and-audio-checks-passed-human-review-pending",
         "render_results": [],
         "human_review": "Pending: visual quality, safe areas, rights, and final approval must be reviewed by a person.",
     }
@@ -141,7 +151,7 @@ def main() -> int:
         result = {
             "name": item["name"],
             "output": item["output"],
-            "expected": {key: item.get(key) for key in ("width", "height", "duration_seconds")},
+            "expected": {key: item.get(key) for key in ("width", "height", "duration_seconds", "audio")},
             "actual": actual,
             "status": "pass" if not metadata_errors else "fail",
             "errors": metadata_errors,
