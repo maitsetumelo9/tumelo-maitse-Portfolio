@@ -24,12 +24,29 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Install media rendering tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg fonts-dejavu-core
+
+      - name: Render teaser MP4
+        run: |
+          bash projects/entertainment-supercut/render_teaser.sh projects/entertainment-supercut/after-the-signal-teaser.mp4
+          test "$(ffprobe -v error -show_entries format=duration -of csv=p=0 projects/entertainment-supercut/after-the-signal-teaser.mp4 | cut -d. -f1)" = "12"
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 projects/entertainment-supercut/after-the-signal-teaser.mp4)" = "720x1280"
+
+      - name: Render campaign motion card MP4
+        run: |
+          bash projects/campaign-motion-static/render_campaign_card.sh projects/campaign-motion-static/campaign-motion-card.mp4
+          test "$(ffprobe -v error -show_entries format=duration -of csv=p=0 projects/campaign-motion-static/campaign-motion-card.mp4 | cut -d. -f1)" = "6"
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 projects/campaign-motion-static/campaign-motion-card.mp4)" = "1920x1080"
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
 
-      - name: Upload static site
+      - name: Upload static site and generated media
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
