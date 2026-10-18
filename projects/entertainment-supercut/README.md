@@ -12,7 +12,7 @@
 A fictional near-future mystery about a city that receives a message from tomorrow. The visuals use original typography, graphic shapes, and copy. No third-party footage or music is used.
 
 ## Included work
-- Five-beat browser promo with pause/replay controls, progress indicator, responsive layout, and reduced-motion fallback.
+- Five-beat browser promo with pause/replay controls, progress indicator, responsive layout, reduced-motion fallback, and a click-to-enable synthesized sound preview.
 - Reproducible FFmpeg script for a 12-second vertical MP4 with synthesized low-frequency drone, pulsing texture, and intermittent signal tones with animated graphic treatment and title cards.
 - Storyboard timing, export settings, and render metadata checks in the production notes and deployment workflow.
 
@@ -26,4 +26,4 @@ A fictional near-future mystery about a city that receives a message from tomorr
 - [ ] Listen on phone/headphones and review loudness and tonal balance before final approval
 
 ## Honest tool statement
-The browser prototype is HTML/CSS/JavaScript. The MP4 is rendered from generated typography and graphic overlays using FFmpeg. This is a motion-graphics teaser, not live-action footage, and it does not claim use of CapCut, Remotion, or an AI video generator. The MP4 link is only live when the latest GitHub Pages deployment succeeds.
+The browser prototype is HTML/CSS/JavaScript and includes an opt-in Web Audio API sound preview. The MP4 is rendered from generated typography and graphic overlays using FFmpeg. This is a motion-graphics teaser, not live-action footage, and it does not claim use of CapCut, Remotion, or an AI video generator. The MP4 link is only live when the latest GitHub Pages deployment succeeds.
