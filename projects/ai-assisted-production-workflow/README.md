@@ -1,6 +1,6 @@
 # AI-Assisted Creative Production Workflow
 
-**Status: runnable local render-and-QA pipeline.** It validates the production manifest, checks that referenced source files exist, runs the two FFmpeg render scripts, verifies generated MP4 dimensions, duration, and presence of encoded audio with ffprobe, and writes a JSON report. It does not call an external AI model or claim autonomous AI-agent behaviour.
+**Status: runnable local render-and-QA pipeline.** It validates the production manifest, checks that referenced source files exist, runs the two FFmpeg render scripts, verifies generated MP4 dimensions, duration, and presence of encoded audio with ffprobe, and writes a JSON report. It does not call an external AI model or claim autonomous AI-agent behaviour. The browser demos use opt-in Web Audio API sound previews; the MP4 renders include synthesized AAC audio.
 
 ## Run it
 
