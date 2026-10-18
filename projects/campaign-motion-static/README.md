@@ -23,7 +23,7 @@
 - [x] Three standalone SVG poster assets with explicit dimensions
 - [x] Six-second looping browser motion title card with pause and opt-in sound controls
 - [x] Reproducible FFmpeg script renders a six-second 1920 × 1080 MP4 with AAC audio
-- [ ] Listen on phone/headphones and review loudness and tonal balance before final approval
+- [ ] Listen on phone/headphones and review loudness and tonal balance before final approval (automated audio-stream check passed; human listening still pending)
 - [x] Colour palette and creative direction documented
 - [ ] Review on a physical phone and capture genuine process screenshots
 - [ ] Create editable source files in a specific external design tool if the job brief requires them
