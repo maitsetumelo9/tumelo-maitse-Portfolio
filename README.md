@@ -57,6 +57,16 @@ Open `projects/hash-encoding-lab/index.html` in a modern browser. SHA-256 requir
 
 Credentials should be listed only when the certificate details and issuer can be verified. This section will be expanded with accurate names, dates, and links or evidence where available.
 
+## AI-enabled creative production projects
+
+These projects are being developed for an AI-enabled content production portfolio. Their current status is explicit: a starter mockup or written brief is not the same as a finished showreel or a tested automation pipeline.
+
+- **[15-Second Entertainment Supercut](projects/entertainment-supercut/README.md)** — fictional sci-fi promo concept, edit timing, rights checklist, and planned exports. Video not yet completed.
+- **[Motion + Static Campaign](projects/campaign-motion-static/README.md)** — responsive visual starter for a fictional campaign, with planned vertical, square, landscape, and motion deliverables. [Open the starter page](projects/campaign-motion-static/index.html).
+- **[AI-Assisted Production Workflow](projects/ai-assisted-production-workflow/README.md)** — proposed creative production and QA workflow with an example manifest; no end-to-end agent automation is claimed yet.
+
+The portfolio website also has a [Creative Work section](https://maitsetumelo9.github.io/tumelo-maitse-Portfolio/#creative). Finish the actual media exports, capture process evidence, and update each project status before presenting them as completed work.
+
 ## Development standard
 
 Each substantial project should include a working implementation, setup instructions, test evidence, known limitations, and a clear statement of its security scope. No fake scan results, fabricated qualifications, or empty commits.
