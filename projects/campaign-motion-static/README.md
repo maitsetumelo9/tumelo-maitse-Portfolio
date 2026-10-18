@@ -1,34 +1,24 @@
 # Motion + Static Campaign — AFTER THE SIGNAL
 
-**Status: In progress — creative brief and starter asset. The preview is a web mockup, not a finished motion-design reel.**
+**Status: working responsive campaign preview implemented. Separate PNG/SVG exports and a motion title-card file are not included yet.**
 
-## Goal
-Build a small, consistent campaign system for a fictional entertainment release across multiple formats. Demonstrate hierarchy, typography, colour, safe areas, and version consistency.
+## Preview
+Open [the campaign studio](index.html). Use the format controls to switch the composition between vertical 9:16, square 1:1, and landscape 16:9. The same campaign title, tagline, palette, and hierarchy are maintained across formats.
 
 ## Campaign system
 - **Title:** AFTER THE SIGNAL
 - **Tagline:** The future called. Nobody should answer.
-- **Mood:** restrained sci-fi mystery; dark navy/black, electric cyan, warm signal amber
-- **Type hierarchy:** bold condensed-style headline, readable supporting copy, small release line
-- **Rule:** keep all text original and avoid real studio, streaming-service, or franchise branding.
+- **Mood:** restrained sci-fi mystery; dark navy, electric cyan, warm signal amber
+- **Type hierarchy:** bold headline, readable supporting copy, small release line
+- **Assets:** original HTML/CSS graphics and original copy; no third-party footage or branding
 
-## Planned deliverables
-- [ ] Vertical social poster, 1080 × 1920
-- [ ] Square social tile, 1080 × 1080
-- [ ] Horizontal banner, 1920 × 1080
-- [ ] 6-second motion title card
-- [ ] Mini style guide with typography, colour values, spacing, and export names
-- [ ] QA comparison showing that every format uses the same title, tagline, and release details
+## Format targets
+- [x] Responsive vertical, square, and landscape composition previews
+- [x] Colour palette and creative direction documented
+- [x] In-page QA checklist
+- [ ] Export final static artwork as separate production-size image files
+- [ ] Build and export a 6-second motion title card
+- [ ] Check platform safe areas and review each final export
 
-## Review checklist
-1. Is the title readable at phone size?
-2. Are contrast and text-safe areas acceptable?
-3. Do all formats match the same creative brief?
-4. Are any assets, fonts, or sounds restricted by licence?
-5. Are exports correctly sized, named, and reviewed?
-
-## Starter
-Open `index.html` in a browser to see the initial responsive campaign concept. It is a design starting point, not a claim of finished Photoshop, Illustrator, or Figma deliverables.
-
-## Current evidence
-The starter page is included in this repository. Add exported artwork, motion output, screenshots, and a short explanation of design decisions as the work is completed.
+## Limitations
+The preview is an implemented web concept, not finished Photoshop, Illustrator, or Figma source files. Exported deliverables and human QA remain outstanding. Do not describe those exports as complete until the files are present and reviewed.
