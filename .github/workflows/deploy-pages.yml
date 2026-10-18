@@ -24,10 +24,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Install media rendering tools
+      - name: Ensure media rendering tools are available
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes ffmpeg fonts-dejavu-core
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! test -f /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf || ! test -f /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf; then
+            sudo apt-get update
+            sudo apt-get install --yes ffmpeg fonts-dejavu-core
+          fi
+          ffmpeg -version | head -n 1
+          test -f /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+          test -f /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
 
       - name: Render teaser MP4
         run: |
