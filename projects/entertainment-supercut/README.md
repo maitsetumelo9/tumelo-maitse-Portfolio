@@ -1,30 +1,28 @@
-# Entertainment Supercut — 15-Second Promo
+# Entertainment Supercut — AFTER THE SIGNAL
 
-**Status: browser-based animated prototype implemented. An MP4 export and audio mix are not included.**
+**Status: browser prototype and a real silent MP4 teaser are available.** The MP4 is a 12-second, 720×1280, 24 fps H.264 export; it is a separate vertical cut, not the 15-second browser prototype.
 
-## Play the promo
-Open [the animated 15-second promo](index.html) in a modern browser. It has five timed story beats, animated signal graphics, replay/pause controls, a progress bar, responsive layout, and a reduced-motion fallback.
+## Preview
+- [Play the browser-based promo](index.html)
+- [Production notes and shot list](production-notes.md)
+- [Re-render script](render_teaser.sh)
 
 ## Creative direction
-A fictional series teaser called **AFTER THE SIGNAL**: a near-future mystery about a city that receives a message from tomorrow. All copy and graphics in the browser prototype are original. It uses no third-party footage or music.
+A fictional series teaser called **AFTER THE SIGNAL**: a near-future mystery about a city that receives a message from tomorrow. The visuals use original typography, graphic shapes, and copy. No third-party footage or music is used.
 
-## Story beats
-| Time | Beat | On-screen message |
-|---|---|---|
-| 0–3 s | Hook | SOMETHING CHANGED |
-| 3–6 s | Mystery | THE CITY WENT QUIET |
-| 6–10 s | Escalation | IT KNEW OUR NAMES |
-| 10–13 s | Reveal | TOMORROW IS CALLING |
-| 13–15 s | Title | AFTER THE SIGNAL |
+## Deliverables
+- Browser promo: 15-second interactive prototype with five timed story beats, replay/pause controls, progress indicator, responsive layout, and reduced-motion fallback.
+- MP4 teaser: 12-second vertical H.264 video with timed title cards, animated grid/signal sweep, and transitions. This version is intentionally silent.
+- Production documentation: shot timing, export settings, and a reproducible FFmpeg script.
 
-## QA / next production step
+## QA / remaining work
 - [x] Browser animation and responsive layout
-- [x] Replay and pause controls
-- [x] Original typography, graphics, and copy
-- [ ] Capture and inspect an actual 15-second video export
-- [ ] Add a licensed/original music and sound-effects mix, or explicitly deliver silent
-- [ ] Review final exports in vertical and horizontal formats
-- [ ] Capture timeline/process evidence for a showreel case study
+- [x] MP4 rendered and duration/size metadata checked with ffprobe
+- [x] Sample frames inspected for visual layout
+- [x] Silent delivery clearly labelled; no unlicensed audio
+- [ ] Add an original or properly licensed sound mix if the brief requires audio
+- [ ] Review on a phone and capture genuine editing-process screenshots for a showreel case study
+- [ ] Add an MP4 asset to the hosted portfolio after choosing a repository/hosting location for binary media
 
 ## Honest tool statement
-The current piece is built with HTML, CSS, and JavaScript. It is not an MP4 and does not claim that CapCut, FFmpeg, Remotion, or an AI video generator was used to produce a file. Only update this statement when a real workflow and its output exist.
+The browser prototype is HTML/CSS/JavaScript. The MP4 was rendered with FFmpeg using generated typography and graphic overlays. This is a motion-graphics teaser, not live-action footage, and it does not claim use of CapCut, Remotion, or an AI video generator.
