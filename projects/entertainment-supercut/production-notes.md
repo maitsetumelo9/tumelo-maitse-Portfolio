@@ -35,3 +35,12 @@ Create a compact vertical teaser for a fictional near-future mystery series. The
 3. If audio is requested, add only original or properly licensed music and sound effects, then re-export and re-check.
 4. Capture genuine timeline/workflow screenshots from the editor used. Do not present generated frames as screenshots of an editing timeline.
 5. If the brief asks for multiple aspect ratios, create and inspect separate exports rather than stretching this vertical cut.
+
+## Sound design update
+
+Both MP4 render scripts synthesize original audio with FFmpeg tone sources and filters; no external music files, samples, or API keys are required.
+
+- **12-second vertical teaser:** atmospheric low-frequency drone, pulsing sub-tone, and intermittent signal/echo beeps; AAC audio at 48 kHz.
+- **6-second landscape campaign card:** sustained tone, pulse, and short sonic-branding pings; AAC audio at 48 kHz.
+- The render pipeline checks the presence of an encoded audio stream alongside dimensions and duration.
+- This is synthetic sound design, not a licensed commercial music track. Listening on a phone/headphones and final loudness review remain human checks.
