@@ -1,13 +1,15 @@
 # Motion + Static Campaign — AFTER THE SIGNAL
 
-**Status: implemented web preview, three SVG campaign assets, and a six-second browser motion card. Final raster exports and external-tool source files are not included.**
+**Status: working campaign studio, three standalone SVG posters, browser motion card, and reproducible MP4 render script.** PNG/JPEG exports and editable files for Photoshop, Illustrator, or Figma are not included.
 
-## Open the work
-- [Campaign studio with responsive format controls](index.html)
+## Live previews and deliverables
+- [Open campaign studio](index.html)
 - [Vertical poster SVG — 1080 × 1920](poster-vertical.svg)
 - [Square poster SVG — 1080 × 1080](poster-square.svg)
 - [Landscape poster SVG — 1920 × 1080](poster-landscape.svg)
-- [Six-second animated title card](motion-title-card.html)
+- [Open six-second browser motion card](motion-title-card.html)
+- [Render script for the six-second MP4](render_campaign_card.sh)
+- Hosted MP4 after successful Pages deployment: [campaign-motion-card.mp4](campaign-motion-card.mp4)
 
 ## Campaign system
 - **Title:** AFTER THE SIGNAL
@@ -16,15 +18,14 @@
 - **Type hierarchy:** bold headline, readable supporting copy, small release line
 - **Assets:** original SVG vectors, HTML/CSS graphics, and original copy; no third-party footage or branding
 
-## Deliverables
+## Quality checks
 - [x] Responsive vertical, square, and landscape composition previews
-- [x] Three standalone SVG poster assets
+- [x] Three standalone SVG poster assets with explicit dimensions
 - [x] Six-second looping browser motion title card with pause control
+- [x] Reproducible FFmpeg script intended to produce a six-second 1920 × 1080 MP4
 - [x] Colour palette and creative direction documented
-- [x] In-page QA checklist
-- [ ] Export and inspect final PNG/JPEG files if required by the brief
-- [ ] Capture a video export of the motion card and verify its duration
-- [ ] Check platform safe areas and review final deliverables at target sizes
+- [ ] Review on a physical phone and capture genuine process screenshots
+- [ ] Create editable source files in a specific external design tool if the job brief requires them
 
 ## Limitations
-The SVGs and browser animation are working deliverables, but they are not Photoshop, Illustrator, or Figma source files and the motion card is not an exported MP4. Do not claim those tool formats or video exports unless actually produced.
+The SVGs and browser animation are working deliverables, but they are not Photoshop, Illustrator, or Figma source files. The MP4 is generated during the GitHub Pages deployment and is only considered published when that deployment succeeds. No third-party AI/video tool use is claimed.
