@@ -1,39 +1,36 @@
 # AI-Assisted Creative Production Workflow
 
-**Status: working manifest validator and documented workflow; external AI-agent orchestration is not implemented.**
-
-## Implemented
-- JSON production manifest for deliverables, dimensions, durations, asset provenance, and QA states.
-- Python validator using only the standard library.
-- Unit tests for required fields, dimensions, duplicate outputs, asset usage review, and QA types.
-- Human-review workflow and explicit limitations.
+**Status: runnable local render-and-QA pipeline.** It validates the production manifest, checks that referenced source files exist, runs the two FFmpeg render scripts, verifies the generated MP4 dimensions and duration with ffprobe, and writes a JSON report. It does not call an external AI model or claim autonomous AI-agent behaviour.
 
 ## Run it
-From this directory with Python 3.9+:
+
+Install Python 3.9+ and FFmpeg with libx264 and ffprobe. From the repository root:
 
 ```bash
-python validate_manifest.py
-python -m unittest -v
+python projects/ai-assisted-production-workflow/run_production.py --check-only
+python projects/ai-assisted-production-workflow/run_production.py
+python -m unittest discover -s projects/ai-assisted-production-workflow -v
 ```
 
-Pass a different manifest path as an optional argument: `python validate_manifest.py path/to/manifest.json`.
+The full run creates:
+- `projects/entertainment-supercut/after-the-signal-teaser.mp4` — 12 seconds, 720 × 1280, silent H.264.
+- `projects/campaign-motion-static/campaign-motion-card.mp4` — 6 seconds, 1920 × 1080, silent H.264.
+- `production-report.json` — expected-versus-actual metadata for each generated video.
 
-The validator distinguishes a structurally valid manifest from completed production. It reports pending QA instead of pretending the media has been reviewed.
+The GitHub Pages deployment runs the same render scripts, checks both files' metadata, and publishes the generated MP4s alongside the static site. The pipeline is deterministic and does not need API keys.
 
-## Workflow
-1. **Brief:** define audience, message, platform, duration, aspect ratios, and prohibited content.
-2. **Plan:** create a shot list and copy; get human approval.
-3. **Generate/source:** use original or appropriately licensed assets and record provenance.
-4. **Assemble:** edit in a creative tool. Remotion may support code-driven motion; FFmpeg may support media inspection/transcoding after commands and versions are tested.
-5. **Export:** make requested deliverables with predictable names.
-6. **QA:** check dimensions, duration, audio, spelling, safe areas, rights, and visual consistency.
-7. **Sign-off:** a human reviews each output and records approval.
+## Workflow stages
 
-## Limitations
-- This is not an autonomous AI agent and does not call Runway, Sora, Figma, Remotion, or FFmpeg.
-- The 15-second promo is a browser animation, not an MP4 file.
-- QA booleans remain false until someone actually checks the outputs.
-- Passing validation does not prove creative quality, rights clearance, or delivery readiness.
+1. **Brief and manifest:** record target formats, dimensions, duration, source provenance, and QA states.
+2. **Source checks:** reject invalid manifest structure, missing referenced files, and unsafe output paths.
+3. **Render:** invoke the checked-in FFmpeg scripts.
+4. **Automated technical QA:** use ffprobe to verify video streams, dimensions, frame rate, duration, and file size.
+5. **Report:** write machine-readable JSON results; fail the process if an export does not match its brief.
+6. **Human sign-off:** review text, visual quality, safe areas, rights, audio requirements, and suitability before treating the work as final.
 
-## Rights and privacy
-Use original, public-domain, or properly licensed assets. Do not upload confidential client materials to third-party AI tools without permission. Review provider terms for commercial use and disclosure requirements. AI-generated work still requires human review.
+## Limitations and rights
+
+- This is a local production automation/QA utility, **not an autonomous AI agent** and does not call Runway, Sora, Figma, Remotion, or other AI services.
+- Automated metadata checks cannot judge creative quality, spelling, accessibility, rights, or whether a visual looks good on a phone. Human review remains required.
+- The videos are original motion-graphics concepts with no third-party footage or audio.
+- Do not upload confidential client material to third-party AI tools without permission. Review asset licences and provider terms before commercial use.
