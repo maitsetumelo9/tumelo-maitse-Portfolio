@@ -1,6 +1,6 @@
 {
   "project": "AFTER THE SIGNAL",
-  "status": "render-scripts-updated-audio-qa-required",
+  "status": "audio-enabled-renders-and-automated-qa-passed-human-review-pending",
   "brief": {
     "audience": "fans of science-fiction mystery",
     "primary_message": "The future called. Nobody should answer.",
@@ -72,12 +72,13 @@
     }
   ],
   "qa_checklist": {
-    "correct_dimensions": false,
-    "duration_checked": false,
-    "audio_checked": false,
+    "correct_dimensions": true,
+    "duration_checked": true,
+    "audio_checked": true,
     "text_and_spelling_checked": false,
     "safe_areas_checked": false,
     "rights_reviewed": false,
-    "human_approved": false
+    "human_approved": false,
+    "audio_listening_reviewed": false
   }
 }
