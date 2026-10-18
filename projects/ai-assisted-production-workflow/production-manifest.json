@@ -34,14 +34,16 @@
         "width": 720,
         "height": 1280,
         "duration_seconds": 12,
-        "output": "projects/entertainment-supercut/after-the-signal-teaser.mp4"
+        "output": "projects/entertainment-supercut/after-the-signal-teaser.mp4",
+        "render_script": "projects/entertainment-supercut/render_teaser.sh"
       },
       {
         "name": "campaign-motion-card-mp4",
         "width": 1920,
         "height": 1080,
         "duration_seconds": 6,
-        "output": "projects/campaign-motion-static/campaign-motion-card.mp4"
+        "output": "projects/campaign-motion-static/campaign-motion-card.mp4",
+        "render_script": "projects/campaign-motion-static/render_campaign_card.sh"
       }
     ]
   },
