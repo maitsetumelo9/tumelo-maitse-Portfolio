@@ -6,7 +6,7 @@ VALID = {
     "brief": {"deliverables": [{"name": "master", "width": 1920, "height": 1080, "duration_seconds": 15}]},
     "asset_provenance": [{"asset": "original.svg", "source": "original", "usage_terms_reviewed": True}],
     "qa_checklist": {"correct_dimensions": False, "duration_checked": False, "audio_checked": False,
-                     "text_and_spelling_checked": False, "safe_areas_checked": False,
+                     "audio_listening_reviewed": False, "text_and_spelling_checked": False, "safe_areas_checked": False,
                      "rights_reviewed": False, "human_approved": False}
 }
 
