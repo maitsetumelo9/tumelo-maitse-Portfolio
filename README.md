@@ -44,9 +44,9 @@ The following are original fictional concept projects. They are practical protot
 Open the linked HTML demos in a modern browser. For the Python workflow:
 
 ```bash
-cd projects/ai-assisted-production-workflow
-python validate_manifest.py
-python -m unittest -v
+python projects/ai-assisted-production-workflow/run_production.py --check-only
+python projects/ai-assisted-production-workflow/run_production.py
+python -m unittest discover -s projects/ai-assisted-production-workflow -v
 ```
 
 To render the videos locally, install FFmpeg with libx264 and DejaVu Sans fonts, then run the shell scripts listed in each project's README. The GitHub Pages deployment also renders and checks the videos before publishing.
