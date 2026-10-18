@@ -67,6 +67,14 @@ These projects are being developed for an AI-enabled content production portfoli
 
 The portfolio website also has a [Creative Work section](https://maitsetumelo9.github.io/tumelo-maitse-Portfolio/#creative). Finish the actual media exports, capture process evidence, and update each project status before presenting them as completed work.
 
+## AI-enabled creative production projects
+
+- **[15-Second Entertainment Promo](projects/entertainment-supercut/README.md)** — [play the browser animation](projects/entertainment-supercut/index.html), with timed scenes and replay/pause controls. MP4 export remains outstanding.
+- **[Motion + Static Campaign](projects/campaign-motion-static/README.md)** — [campaign studio](projects/campaign-motion-static/index.html), three standalone SVG poster assets, and a [six-second browser motion card](projects/campaign-motion-static/motion-title-card.html). MP4/raster exports and external-tool source files remain outstanding.
+- **[AI-Assisted Production Workflow](projects/ai-assisted-production-workflow/README.md)** — a runnable Python manifest validator, example production manifest, and unit tests. External AI-agent orchestration is not implemented.
+
+These are original fictional concept projects. Their working prototypes are not represented as completed client work or proof of professional experience. Run the workflow validator and tests from its project directory using the instructions in its README.
+
 ## Development standard
 
 Each substantial project should include a working implementation, setup instructions, test evidence, known limitations, and a clear statement of its security scope. No fake scan results, fabricated qualifications, or empty commits.
