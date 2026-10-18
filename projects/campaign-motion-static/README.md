@@ -21,7 +21,7 @@
 ## Quality checks
 - [x] Responsive vertical, square, and landscape composition previews
 - [x] Three standalone SVG poster assets with explicit dimensions
-- [x] Six-second looping browser motion title card with pause control
+- [x] Six-second looping browser motion title card with pause and opt-in sound controls
 - [x] Reproducible FFmpeg script renders a six-second 1920 × 1080 MP4 with AAC audio
 - [ ] Listen on phone/headphones and review loudness and tonal balance before final approval
 - [x] Colour palette and creative direction documented
