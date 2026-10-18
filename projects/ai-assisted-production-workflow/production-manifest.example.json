@@ -1,0 +1,29 @@
+{
+  "project": "AFTER THE SIGNAL",
+  "status": "example-only-not-executed",
+  "brief": {
+    "audience": "fans of sci-fi mystery",
+    "primary_message": "The future called. Nobody should answer.",
+    "deliverables": [
+      { "name": "promo-vertical", "width": 1080, "height": 1920, "duration_seconds": 15 },
+      { "name": "promo-landscape", "width": 1920, "height": 1080, "duration_seconds": 15 },
+      { "name": "campaign-square", "width": 1080, "height": 1080, "duration_seconds": null }
+    ]
+  },
+  "asset_provenance": [
+    {
+      "asset": "replace-with-asset-filename",
+      "source": "original-generated-or-licensed",
+      "usage_terms_reviewed": false
+    }
+  ],
+  "qa_checklist": {
+    "correct_dimensions": false,
+    "duration_checked": false,
+    "audio_checked": false,
+    "text_and_spelling_checked": false,
+    "safe_areas_checked": false,
+    "rights_reviewed": false,
+    "human_approved": false
+  }
+}
