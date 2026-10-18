@@ -1,0 +1,27 @@
+name: Creative production workflow tests
+
+on:
+  push:
+    paths:
+      - "projects/ai-assisted-production-workflow/**"
+      - ".github/workflows/creative-workflow-tests.yml"
+  pull_request:
+    paths:
+      - "projects/ai-assisted-production-workflow/**"
+      - ".github/workflows/creative-workflow-tests.yml"
+
+jobs:
+  validate-manifest:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/ai-assisted-production-workflow
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate production manifest
+        run: python validate_manifest.py
+      - name: Run unit tests
+        run: python -m unittest -v
