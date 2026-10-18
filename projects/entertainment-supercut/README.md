@@ -23,7 +23,7 @@ A fictional near-future mystery about a city that receives a message from tomorr
 - [x] Original synthesized sound effects and music bed included; no third-party audio or footage
 - [ ] Review playback on a physical phone and capture genuine editing-process screenshots
 - [x] Add original synthesized sound design and encode AAC audio in the MP4
-- [ ] Listen on phone/headphones and review loudness and tonal balance before final approval
+- [ ] Listen on phone/headphones and review loudness and tonal balance before final approval (automated audio-stream check passed; human listening still pending)
 
 ## Honest tool statement
 The browser prototype is HTML/CSS/JavaScript and includes an opt-in Web Audio API sound preview. The MP4 is rendered from generated typography and graphic overlays using FFmpeg. This is a motion-graphics teaser, not live-action footage, and it does not claim use of CapCut, Remotion, or an AI video generator. The MP4 link is only live when the latest GitHub Pages deployment succeeds.
