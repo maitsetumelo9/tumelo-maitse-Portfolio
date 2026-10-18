@@ -1,6 +1,6 @@
 {
   "project": "AFTER THE SIGNAL",
-  "status": "prototype-assets-created-qa-pending",
+  "status": "render-scripts-updated-audio-qa-required",
   "brief": {
     "audience": "fans of science-fiction mystery",
     "primary_message": "The future called. Nobody should answer.",
@@ -35,7 +35,8 @@
         "height": 1280,
         "duration_seconds": 12,
         "output": "projects/entertainment-supercut/after-the-signal-teaser.mp4",
-        "render_script": "projects/entertainment-supercut/render_teaser.sh"
+        "render_script": "projects/entertainment-supercut/render_teaser.sh",
+        "audio": true
       },
       {
         "name": "campaign-motion-card-mp4",
@@ -43,7 +44,8 @@
         "height": 1080,
         "duration_seconds": 6,
         "output": "projects/campaign-motion-static/campaign-motion-card.mp4",
-        "render_script": "projects/campaign-motion-static/render_campaign_card.sh"
+        "render_script": "projects/campaign-motion-static/render_campaign_card.sh",
+        "audio": true
       }
     ]
   },
