@@ -49,22 +49,22 @@
   },
   "asset_provenance": [
     {
-      "asset": "entertainment-supercut/index.html",
+      "asset": "projects/entertainment-supercut/index.html",
       "source": "original HTML, CSS, and copy authored for this portfolio",
       "usage_terms_reviewed": true
     },
     {
-      "asset": "campaign-motion-static/index.html",
+      "asset": "projects/campaign-motion-static/index.html",
       "source": "original HTML, CSS, and copy authored for this portfolio",
       "usage_terms_reviewed": true
     },
     {
-      "asset": "entertainment-supercut/render_teaser.sh",
+      "asset": "projects/entertainment-supercut/render_teaser.sh",
       "source": "reproducible FFmpeg script authored for this portfolio",
       "usage_terms_reviewed": true
     },
     {
-      "asset": "campaign-motion-static/render_campaign_card.sh",
+      "asset": "projects/campaign-motion-static/render_campaign_card.sh",
       "source": "reproducible FFmpeg script authored for this portfolio",
       "usage_terms_reviewed": true
     }
