@@ -1,24 +1,30 @@
 # Motion + Static Campaign — AFTER THE SIGNAL
 
-**Status: working responsive campaign preview implemented. Separate PNG/SVG exports and a motion title-card file are not included yet.**
+**Status: implemented web preview, three SVG campaign assets, and a six-second browser motion card. Final raster exports and external-tool source files are not included.**
 
-## Preview
-Open [the campaign studio](index.html). Use the format controls to switch the composition between vertical 9:16, square 1:1, and landscape 16:9. The same campaign title, tagline, palette, and hierarchy are maintained across formats.
+## Open the work
+- [Campaign studio with responsive format controls](index.html)
+- [Vertical poster SVG — 1080 × 1920](poster-vertical.svg)
+- [Square poster SVG — 1080 × 1080](poster-square.svg)
+- [Landscape poster SVG — 1920 × 1080](poster-landscape.svg)
+- [Six-second animated title card](motion-title-card.html)
 
 ## Campaign system
 - **Title:** AFTER THE SIGNAL
 - **Tagline:** The future called. Nobody should answer.
 - **Mood:** restrained sci-fi mystery; dark navy, electric cyan, warm signal amber
 - **Type hierarchy:** bold headline, readable supporting copy, small release line
-- **Assets:** original HTML/CSS graphics and original copy; no third-party footage or branding
+- **Assets:** original SVG vectors, HTML/CSS graphics, and original copy; no third-party footage or branding
 
-## Format targets
+## Deliverables
 - [x] Responsive vertical, square, and landscape composition previews
+- [x] Three standalone SVG poster assets
+- [x] Six-second looping browser motion title card with pause control
 - [x] Colour palette and creative direction documented
 - [x] In-page QA checklist
-- [ ] Export final static artwork as separate production-size image files
-- [ ] Build and export a 6-second motion title card
-- [ ] Check platform safe areas and review each final export
+- [ ] Export and inspect final PNG/JPEG files if required by the brief
+- [ ] Capture a video export of the motion card and verify its duration
+- [ ] Check platform safe areas and review final deliverables at target sizes
 
 ## Limitations
-The preview is an implemented web concept, not finished Photoshop, Illustrator, or Figma source files. Exported deliverables and human QA remain outstanding. Do not describe those exports as complete until the files are present and reviewed.
+The SVGs and browser animation are working deliverables, but they are not Photoshop, Illustrator, or Figma source files and the motion card is not an exported MP4. Do not claim those tool formats or video exports unless actually produced.
