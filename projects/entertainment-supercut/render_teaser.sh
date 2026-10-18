@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-render the silent vertical AFTER THE SIGNAL teaser.
+# Render the vertical AFTER THE SIGNAL teaser with original synthesized sound design.
 # Requires FFmpeg built with libx264 and DejaVu Sans fonts.
 set -euo pipefail
 OUT="${1:-after-the-signal-teaser.mp4}"
@@ -9,7 +9,13 @@ if [[ ! -f "$FONT" || ! -f "$BOLD" ]]; then
   echo "Missing DejaVu Sans font. Set FONT and BOLD to valid font-file paths." >&2
   exit 1
 fi
-ffmpeg -y -f lavfi -i "color=c=#050b12:s=720x1280:r=24:d=12" -filter_complex "
+ffmpeg -y \
+  -f lavfi -i "color=c=#050b12:s=720x1280:r=24:d=12" \
+  -f lavfi -i "sine=frequency=55:duration=12:sample_rate=48000" \
+  -f lavfi -i "sine=frequency=110:duration=12:sample_rate=48000" \
+  -f lavfi -i "sine=frequency=880:duration=12:sample_rate=48000" \
+  -f lavfi -i "sine=frequency=660:duration=12:sample_rate=48000" \
+  -filter_complex "
 [0:v]drawgrid=width=72:height=72:thickness=1:color=#10303c@0.55,
 noise=alls=8:allf=t+u,
 drawbox=x='mod(t*90,900)-180':y=0:w=130:h=1280:color=#00d9ff@0.045:t=fill,
@@ -29,5 +35,11 @@ drawbox=x=0:y=0:w=720:h=1280:color=black@0.35:t=fill:enable='between(t\,9\,12)',
 drawtext=fontfile=${BOLD}:text='AFTER THE SIGNAL':fontcolor=white:fontsize=48:x=(w-text_w)/2:y=545:alpha='if(between(t\\,9\\,12)\\,if(lt(t\\,9.5)\\,(t-9)/0.5\\,if(gt(t\\,11.6)\\,(12-t)/0.4\\,1))\\,0)',
 drawtext=fontfile=${BOLD}:text='A SERIES CONCEPT':fontcolor=#00e5ff:fontsize=21:x=(w-text_w)/2:y=625:alpha='if(between(t\\,9.3\\,12)\\,if(lt(t\\,9.7)\\,(t-9.3)/0.4\\,if(gt(t\\,11.6)\\,(12-t)/0.4\\,1))\\,0)',
 drawtext=fontfile=${FONT}:text='THE SIGNAL IS ONLY THE BEGINNING':fontcolor=#a6c4ce:fontsize=16:x=(w-text_w)/2:y=1068:alpha='if(between(t\\,9.5\\,12)\\,if(lt(t\\,9.9)\\,(t-9.5)/0.4\\,if(gt(t\\,11.7)\\,(12-t)/0.3\\,1))\\,0)',
-format=yuv420p[v]" -map "[v]" -an -c:v libx264 -preset medium -crf 25 -movflags +faststart "$OUT"
+format=yuv420p[v];
+[1:a]lowpass=f=95,volume=0.25,afade=t=in:st=0:d=0.7,afade=t=out:st=10.8:d=1.2[drone];
+[2:a]lowpass=f=180,volume=0.09,tremolo=f=1.1:d=0.7[pulse];
+[3:a]volume='0.24*if(between(mod(t\,2)\,0\,0.13)\,1\,0)',lowpass=f=2400[beep];
+[4:a]volume='0.16*if(between(mod(t+0.55\,3)\,0\,0.10)\,1\,0)',lowpass=f=1800[echo];
+[drone][pulse][beep][echo]amix=inputs=4:duration=longest:normalize=0,alimiter=limit=0.85,afade=t=in:st=0:d=0.25,afade=t=out:st=11.4:d=0.6[a]" \
+  -map "[v]" -map "[a]" -c:v libx264 -preset medium -crf 25 -c:a aac -b:a 160k -ar 48000 -movflags +faststart "$OUT"
 ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "$OUT"
