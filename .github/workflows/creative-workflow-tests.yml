@@ -36,6 +36,8 @@ jobs:
         run: |
           bash -n projects/entertainment-supercut/render_teaser.sh
           bash -n projects/campaign-motion-static/render_campaign_card.sh
+          grep -q 'c:a aac' projects/entertainment-supercut/render_teaser.sh
+          grep -q 'c:a aac' projects/campaign-motion-static/render_campaign_card.sh
           test -s projects/entertainment-supercut/index.html
           test -s projects/entertainment-supercut/production-notes.md
           test -s projects/campaign-motion-static/poster-vertical.svg
